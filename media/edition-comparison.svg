@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">Missing Music edition comparison proof mockup</title>
+  <desc id="desc">A dark edition comparison view with two pressings aligned track by track and extra tracks highlighted.</desc>
+  <rect width="1440" height="900" rx="18" fill="#17191b"/>
+  <rect width="1440" height="58" rx="18" fill="#2b2f33"/><rect y="44" width="1440" height="14" fill="#2b2f33"/>
+  <circle cx="28" cy="29" r="9" fill="#b27a30"/><circle cx="28" cy="29" r="4" fill="#e3c297"/>
+  <text x="52" y="36" fill="#e5e5e5" font-family="Inter,Segoe UI,sans-serif" font-size="18" font-weight="650">Missing Music</text>
+  <text x="1290" y="36" fill="#a5a5a5" font-family="Inter,Segoe UI,sans-serif" font-size="13">DEMO DATA</text>
+  <rect y="58" width="260" height="842" fill="#1d2023"/>
+  <text x="32" y="108" fill="#737373" font-family="Inter,Segoe UI,sans-serif" font-size="12" letter-spacing="1.6">LIBRARY</text>
+  <text x="48" y="152" fill="#a5a5a5" font-family="Inter,Segoe UI,sans-serif" font-size="14">Artists</text>
+  <text x="48" y="200" fill="#a5a5a5" font-family="Inter,Segoe UI,sans-serif" font-size="14">Releases</text>
+  <rect x="20" y="232" width="220" height="42" rx="7" fill="#3a3026" stroke="#b27a30"/><text x="48" y="259" fill="#e3c297" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="600">Edition comparison</text>
+  <text x="32" y="330" fill="#737373" font-family="Inter,Segoe UI,sans-serif" font-size="12" letter-spacing="1.6">REPORTS</text><text x="48" y="374" fill="#a5a5a5" font-family="Inter,Segoe UI,sans-serif" font-size="14">Advanced Reports</text>
+  <rect x="260" y="58" width="1180" height="842" fill="#17191b"/>
+  <text x="306" y="118" fill="#737373" font-family="Inter,Segoe UI,sans-serif" font-size="12" letter-spacing="1.6">EDITION INTELLIGENCE / HOLLOW LANTERN</text>
+  <text x="306" y="166" fill="#e5e5e5" font-family="Archivo,Inter,sans-serif" font-size="34" font-weight="650">Compare editions before you choose.</text>
+  <text x="306" y="198" fill="#a5a5a5" font-family="Inter,Segoe UI,sans-serif" font-size="15">The Long Way Home · 2 editions · track alignment</text>
+  <rect x="306" y="236" width="1064" height="88" rx="10" fill="#25282c" stroke="#34383c"/>
+  <rect x="334" y="260" width="46" height="40" rx="6" fill="#b27a30"/><text x="351" y="286" fill="#1a1a1a" font-family="Inter,Segoe UI,sans-serif" font-size="15" font-weight="700">A</text>
+  <text x="402" y="276" fill="#e5e5e5" font-family="Inter,Segoe UI,sans-serif" font-size="15" font-weight="600">2014 original pressing</text><text x="402" y="300" fill="#a5a5a5" font-family="Inter,Segoe UI,sans-serif" font-size="13">10 tracks · owned</text>
+  <text x="840" y="276" fill="#e5e5e5" font-family="Inter,Segoe UI,sans-serif" font-size="15" font-weight="600">2018 remaster</text><text x="840" y="300" fill="#a5a5a5" font-family="Inter,Segoe UI,sans-serif" font-size="13">13 tracks · catalog edition</text>
+  <rect x="1160" y="260" width="180" height="40" rx="20" fill="#3e2c2b"/><text x="1191" y="285" fill="#ff99a4" font-family="Inter,Segoe UI,sans-serif" font-size="13" font-weight="600">3 extra tracks</text>
+  <rect x="306" y="354" width="1064" height="454" rx="10" fill="#25282c" stroke="#34383c"/>
+  <text x="338" y="392" fill="#737373" font-family="Inter,Segoe UI,sans-serif" font-size="12" letter-spacing="1">TRACK ALIGNMENT</text>
+  <text x="408" y="430" fill="#d0ae80" font-family="Inter,Segoe UI,sans-serif" font-size="13" font-weight="600">OWNED EDITION</text><text x="928" y="430" fill="#d0ae80" font-family="Inter,Segoe UI,sans-serif" font-size="13" font-weight="600">CATALOG EDITION</text>
+  <line x1="338" y1="448" x2="1338" y2="448" stroke="#45494d"/>
+  <g font-family="Inter,Segoe UI,sans-serif" font-size="14">
+    <text x="338" y="486" fill="#e5e5e5">01 · First Light</text><text x="858" y="486" fill="#e5e5e5">01 · First Light</text><text x="1300" y="486" fill="#4ade80">same</text>
+    <line x1="338" y1="506" x2="1338" y2="506" stroke="#34383c"/>
+    <text x="338" y="544" fill="#e5e5e5">02 · Glass Harbour</text><text x="858" y="544" fill="#e5e5e5">02 · Glass Harbour</text><text x="1300" y="544" fill="#4ade80">same</text>
+    <line x1="338" y1="564" x2="1338" y2="564" stroke="#34383c"/>
+    <text x="338" y="602" fill="#e5e5e5">03 · Static Bloom</text><text x="858" y="602" fill="#e5e5e5">03 · Static Bloom</text><text x="1300" y="602" fill="#4ade80">same</text>
+    <line x1="338" y1="622" x2="1338" y2="622" stroke="#34383c"/>
+    <rect x="824" y="640" width="490" height="44" rx="7" fill="#3a3026" stroke="#b27a30" stroke-dasharray="6 4"/><text x="858" y="668" fill="#e3c297">11 · Lantern Room (extra)</text><text x="1274" y="668" fill="#b27a30">new</text>
+    <rect x="824" y="696" width="490" height="44" rx="7" fill="#3a3026" stroke="#b27a30" stroke-dasharray="6 4"/><text x="858" y="724" fill="#e3c297">12 · Long Way Home (extra)</text><text x="1274" y="724" fill="#b27a30">new</text>
+    <text x="338" y="778" fill="#a5a5a5">The comparison keeps the collector’s question visible.</text>
+  </g>
+</svg>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Scan what you own, match the MusicBrainz catalog, investigate gaps and editions, and turn collection gaps into deliberate next actions. Full Pro features on 10 artists." />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Missing Music Features: From folders to a collection you can finish" />
+  <meta property="og:description" content="Scan what you own, match the MusicBrainz catalog, investigate gaps and editions, and turn collection gaps into deliberate next actions." />
+  <meta property="og:url" content="https://lydenyardley.github.io/missingmusic/features.html" />
+  <meta property="og:image" content="https://lydenyardley.github.io/missingmusic/web-app-manifest-512x512.png" />
+  <link rel="canonical" href="https://lydenyardley.github.io/missingmusic/features.html" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-96x96.png" type="image/png" sizes="96x96" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="site.js" defer></script>
+  <title>Missing Music Features: From folders to a collection you can finish</title>
+</head>
+<body data-page="features">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="./" aria-label="Missing Music home">
+        <svg class="brand-mark" viewBox="0 0 354 354" fill="none" aria-hidden="true" width="28" height="28">
+          <path fill="var(--color-brand, #b27a30)" d="M177 0a177 177 0 1 1 0 354 177 177 0 0 1 0-354m59 76a43 43 0 1 0 0 86 43 43 0 0 0 0-86"/>
+        </svg>
+        <span class="brand-word">Missing&nbsp;<span class="brand-wordmark__music">Music</span></span>
+      </a>
+      <nav aria-label="Primary">
+        <a class="nav-link" href="features.html" aria-current="page">Features</a>
+        <a class="nav-link" href="pricing.html">Pricing</a>
+        <a class="nav-cta" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta><span data-release-cta-label>Download the demo</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page-main">
+    <section class="page-hero page-hero--split" data-section="hero" aria-labelledby="features-title">
+      <div class="page-hero__copy">
+        <p class="eyebrow">How the collection becomes clear</p>
+        <h1 id="features-title">From your folders to a collection you can finish.</h1>
+        <p class="lede">Scan what you own. Match the MusicBrainz catalog. Investigate gaps and editions at your pace.</p>
+        <div class="page-hero__actions">
+          <a class="btn btn-primary" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta><span data-release-cta-label>Download the demo</span></a>
+          <a class="btn btn-ghost" href="#edition-intelligence">Find bonus tracks</a>
+        </div>
+        <p class="fine">Full Pro features on 10 artists · no account, ads, or subscription. <a href="#trust">Verify SHA-256</a></p>
+        <p class="fine release-note" data-release-note></p>
+      </div>
+      <figure class="proof-frame page-hero__proof">
+        <img src="media/hero-library.png" width="1440" height="900" fetchpriority="high" decoding="async" alt="Missing Music Library view showing a matched artist discography with owned and missing releases in synthetic demo data." />
+        <figcaption><strong>Start with the folders you already have.</strong> Library data stays on your PC. The MusicBrainz catalog fills in around it.</figcaption>
+      </figure>
+    </section>
+
+    <section class="guide-step" data-section="scan" aria-labelledby="scan-title">
+      <div class="guide-step__copy">
+        <p class="kicker">01 · Start with what you own</p>
+        <h2 id="scan-title">Point at your folders.</h2>
+        <p>Choose your music folders. Missing Music reads them; your files stay untouched.</p>
+      </div>
+      <div class="trust-card">
+        <h3>Read-only by design</h3>
+        <p>Your files remain the source of truth. Library data stays on your PC.</p>
+      </div>
+    </section>
+
+    <section class="guide-step" data-section="match" aria-labelledby="match-title">
+      <div class="guide-step__copy">
+        <p class="kicker">02 · Build the complete picture</p>
+        <h2 id="match-title">Match each artist to the MusicBrainz catalog.</h2>
+        <p>Matching fills in each artist’s catalog: albums, EPs, singles, past, and upcoming releases.</p>
+      </div>
+      <div class="catalog-map" role="img" aria-label="Illustration showing an owned artist mapped to a complete discography">
+        <div class="catalog-map__row"><strong>Your artist</strong><span aria-hidden="true">→</span><strong>Complete discography</strong></div>
+        <p>Albums · EPs · singles · past releases · upcoming releases</p>
+      </div>
+    </section>
+
+    <section class="guide-step" data-section="gap" aria-labelledby="feature-gap-title">
+      <div class="guide-step__copy">
+        <p class="kicker">03 · See the gap</p>
+        <h2 id="feature-gap-title">Every release gets a place.</h2>
+        <p>See owned, missing, upcoming, and Wishlist releases at a glance. Act on the gaps that matter.</p>
+      </div>
+      <div class="gap-board" role="img" aria-label="Illustrative discography row with owned, missing, and Wishlist release states">
+        <p class="gap-board__label">Illustrative discography</p>
+        <div class="gap-board__row">
+          <div class="gap-board__item"><strong>Hollow Lantern</strong><span>Owned</span></div>
+          <div class="gap-board__item gap-board__item--missing"><strong>Copper Season</strong><span>Missing</span></div>
+          <div class="gap-board__item"><strong>Wayside</strong><span>Owned</span></div>
+          <div class="gap-board__item gap-board__item--missing"><strong>Tidal Maps</strong><span>Wishlist</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section report-feature" id="edition-intelligence" data-section="edition-intelligence" aria-labelledby="edition-feature-title">
+      <div class="report-feature__intro">
+        <p class="kicker">04 · Investigate editions and Reports</p>
+        <h2 id="edition-feature-title">Some pressings have more. This finds them.</h2>
+        <p>Compare editions track by track. Two reports other tools skip:</p>
+        <ul class="report-list">
+          <li><strong>Editions with extra tracks.</strong> Albums with a deluxe, remaster, or expanded edition you do not have.</li>
+          <li><strong>Missing tracks from owned releases.</strong> Albums that look owned but are missing tracks.</li>
+        </ul>
+      </div>
+      <div class="report-gallery">
+        <figure class="proof-frame report-gallery__hero">
+          <img src="media/edition-comparison.svg" width="1440" height="900" decoding="async" alt="Illustrated edition comparison: an owned 2014 pressing aligned track by track with a 2018 remaster that adds three extra tracks. Demo data." />
+          <figcaption><strong>Compare before you decide.</strong> A pressing, remaster, or reissue can be materially different. Illustrated with demo data.</figcaption>
+        </figure>
+        <div class="report-gallery__support">
+          <figure class="proof-frame">
+            <img src="media/report-extended-editions.svg" width="1440" height="900" decoding="async" alt="Illustrated report listing owned albums that have catalog editions with extra tracks. Demo data." />
+            <figcaption><strong>Editions with extra tracks.</strong> Identify the releases worth investigating. Illustrated with demo data.</figcaption>
+          </figure>
+          <figure class="proof-frame">
+            <img src="media/report-missing-tracks.svg" width="1440" height="900" decoding="async" alt="Illustrated report listing owned releases whose local track count is lower than the catalog. Demo data." />
+            <figcaption><strong>Missing tracks from owned releases.</strong> Find incomplete copies that look owned. Illustrated with demo data.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-step" id="next-action" data-section="next-action" aria-labelledby="next-feature-title">
+      <div class="guide-step__copy">
+        <p class="kicker">05 · Choose what to pursue</p>
+        <h2 id="next-feature-title">Keep the decision yours.</h2>
+        <p>Save missing releases to your Wishlist. Recommendations and samples are optional. Missing Music never acquires files.</p>
+      </div>
+      <figure class="proof-frame">
+        <img src="media/wishlist-recommendations.svg" width="1440" height="900" decoding="async" alt="Illustrated wishlist with a missing release saved and optional recommendations switched off by default. Demo data." />
+        <figcaption><strong>From gap to intention.</strong> Save the releases you mean to find. Illustrated with demo data.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" data-section="collector-workflow" aria-labelledby="workflow-neighbours-title">
+      <h2 id="workflow-neighbours-title">Tag, then see the gaps, then decide.</h2>
+      <p class="section-lede">Missing Music sits in the middle of a collection you already run. It does not retag. It does not fetch audio.</p>
+      <ol class="neighbour-steps">
+        <li class="neighbour-step">
+          <span class="step-num" aria-hidden="true">1</span>
+          <h3>Identify the files you have</h3>
+          <p><a href="https://picard.musicbrainz.org/">MusicBrainz Picard</a> is the tagging tool we recommend. Point it at the folders first if the tags are messy. Missing Music does not require Picard. Messy tags still scan; cleaner tags make matching more trustworthy.</p>
+        </li>
+        <li class="neighbour-step">
+          <span class="step-num" aria-hidden="true">2</span>
+          <h3>See what is missing</h3>
+          <p>Missing Music scans those folders, matches the artists you own, and shows the gaps, editions, and extra tracks.</p>
+        </li>
+        <li class="neighbour-step">
+          <span class="step-num" aria-hidden="true">3</span>
+          <h3>Fill the gaps on purpose</h3>
+          <p>Buy or rip the releases you mean to own. How you acquire them is yours. Missing Music never downloads a file and does not recommend a grabber.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" id="trust" data-section="trust" aria-labelledby="trust-title">
+      <h2 id="trust-title">Trust, accessibility, and security.</h2>
+      <p class="section-lede">These are things the app actually does. They are not a WCAG or security certificate.</p>
+      <div class="trust-cards">
+        <article class="trust-card"><h3>Privacy by default</h3><p>No account, ads, or analytics. Audio never leaves the machine. Network calls for catalog, covers, or samples are labelled and off until you allow them.</p></article>
+        <article class="trust-card"><h3>Built for keyboard access</h3><p>Visible focus, screen readers, reduced motion, forced colours, and status that is not colour-only.</p></article>
+        <article class="trust-card"><h3>Defence in depth</h3><p>Official installers are only on GitHub Releases, with a SHA-256 file. The app also uses a narrow file scope, CSP, provider allowlists, paced calls, and local crash data.</p></article>
+      </div>
+      <div class="trust-card install-note">
+        <h3>Installing while builds are unsigned</h3>
+        <p>Official installers ship only from the <a href="https://github.com/lydenyardley/missingmusic/releases">GitHub Releases page</a>, with a <code>SHA256SUMS</code> file. Early builds are unsigned on purpose. A code-signing certificate comes after revenue, not before.</p>
+        <ol>
+          <li>Download only from the official Releases page.</li>
+          <li>Verify the hash before running: <code>Get-FileHash -Algorithm SHA256 ".\Missing Music_x.y.z_x64-setup.exe"</code>. Compare it with <code>SHA256SUMS</code>.</li>
+          <li>If Windows SmartScreen appears: confirm the hash, then More info, then Run anyway.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section final-cta" aria-labelledby="features-next-title">
+      <h2 id="features-next-title">Try it on 10 of your artists.</h2>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta><span data-release-cta-label>Download the demo</span></a>
+        <a class="btn btn-ghost" href="pricing.html">Compare all tiers</a>
+      </div>
+      <p class="fine">Full Pro features on 10 artists · no account, ads, or subscription.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer page-footer">
+    <p>Missing Music · Windows desktop · built for collectors who own the music.</p>
+    <nav aria-label="Footer">
+      <a href="features.html">Features</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="features.html#trust">Trust and installer notes</a>
+      <a href="https://github.com/lydenyardley/missingmusic/releases">Releases</a>
+      <a href="https://github.com/lydenyardley/missingmusic">View site source</a>
+    </nav>
+  </footer>
+</body>
+</html>

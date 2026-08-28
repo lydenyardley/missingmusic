@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="One-time pricing for the library you actually run. Free demo with full Pro on 10 artists. Standard, Pro, and Family tiers compared. 30-day refund." />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Missing Music Pricing: Pay once for the library you actually run" />
+  <meta property="og:description" content="One-time pricing for the library you actually run. Free demo with full Pro on 10 artists. Standard, Pro, and Family tiers compared." />
+  <meta property="og:url" content="https://lydenyardley.github.io/missingmusic/pricing.html" />
+  <meta property="og:image" content="https://lydenyardley.github.io/missingmusic/web-app-manifest-512x512.png" />
+  <link rel="canonical" href="https://lydenyardley.github.io/missingmusic/pricing.html" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-96x96.png" type="image/png" sizes="96x96" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="site.js" defer></script>
+  <title>Missing Music Pricing: Pay once for the library you actually run</title>
+</head>
+<body data-page="pricing">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="./" aria-label="Missing Music home">
+        <svg class="brand-mark" viewBox="0 0 354 354" fill="none" aria-hidden="true" width="28" height="28">
+          <path fill="var(--color-brand, #b27a30)" d="M177 0a177 177 0 1 1 0 354 177 177 0 0 1 0-354m59 76a43 43 0 1 0 0 86 43 43 0 0 0 0-86"/>
+        </svg>
+        <span class="brand-word">Missing&nbsp;<span class="brand-wordmark__music">Music</span></span>
+      </a>
+      <nav aria-label="Primary">
+        <a class="nav-link" href="features.html">Features</a>
+        <a class="nav-link" href="pricing.html" aria-current="page">Pricing</a>
+        <a class="nav-cta" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta><span data-release-cta-label>Download the demo</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page-main">
+    <section class="page-hero" data-section="hero" aria-labelledby="pricing-title">
+      <p class="eyebrow">One Windows app · Pay once</p>
+      <h1 id="pricing-title">Pay once for the library you actually run.</h1>
+      <p class="lede">Try every feature on 10 artists. Standard tracks the whole library. Pro adds edition comparison and Wishlist.</p>
+      <div class="page-hero__actions">
+        <a class="btn btn-primary" href="#pro">See Pro</a>
+        <a class="btn btn-ghost" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta><span data-release-cta-label>Download the demo</span></a>
+      </div>
+      <p class="fine">The demo is full Pro on 10 artists · paid tiers are one-time, never a subscription. <a href="features.html#trust">Verify SHA-256</a></p>
+      <p class="fine release-note" data-release-note></p>
+    </section>
+
+    <section class="section" id="plans" data-section="plans" aria-labelledby="plans-title">
+      <h2 id="plans-title">Compare every tier in one place.</h2>
+      <p class="section-lede">Price, machine limit, and every feature difference — checkout at the foot of each column.</p>
+      <div class="plan-matrix-wrap" id="matrix" tabindex="0" role="region" aria-describedby="matrix-scroll-note" aria-label="Full Missing Music tier comparison, scroll horizontally">
+        <table class="plan-matrix">
+          <caption class="sr-only">Missing Music Standard, Pro, and Family paid tiers: price, machine limit, features, and checkout</caption>
+          <thead>
+            <tr>
+              <th scope="col"><span class="sr-only">Feature</span></th>
+              <th scope="col" id="standard" class="plan-head" data-tier="standard">
+                <span class="plan-head__name">Standard</span>
+                <span class="plan-head__price">£15</span>
+                <span class="plan-head__cap">2 machines · one-time</span>
+                <p class="plan-head__desc">Whole-library tracking without edition tools.</p>
+              </th>
+              <th scope="col" id="pro" class="plan-head plan-head--pro" data-tier="pro">
+                <span class="plan-head__name">Pro</span>
+                <span class="plan-head__price">£25</span>
+                <span class="plan-head__cap">2 machines · one-time</span>
+                <span class="plan-head__badge">Most collectors choose this</span>
+                <p class="plan-head__desc">Find pressings with bonus tracks, save releases to your Wishlist, and export your collection.</p>
+              </th>
+              <th scope="col" id="family" class="plan-head" data-tier="family">
+                <span class="plan-head__name">Family</span>
+                <span class="plan-head__price">£35</span>
+                <span class="plan-head__cap">5 machines · one-time</span>
+                <p class="plan-head__desc">All Pro features across five activations.</p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Scan and match</th><td data-tier="standard" data-feature="scan">Included, unlimited</td><td data-tier="pro" data-feature="scan">Included, unlimited</td><td data-tier="family" data-feature="scan">Included, unlimited</td></tr>
+            <tr><th scope="row">Missing-release visibility, dashboard, and filters</th><td data-tier="standard" data-feature="missing-visibility">Included</td><td data-tier="pro" data-feature="missing-visibility">Included</td><td data-tier="family" data-feature="missing-visibility">Included</td></tr>
+            <tr><th scope="row">Basic saved Reports</th><td data-tier="standard" data-feature="basic-reports">Included</td><td data-tier="pro" data-feature="basic-reports">Included</td><td data-tier="family" data-feature="basic-reports">Included</td></tr>
+            <tr><th scope="row">Priority updates (on-demand match re-check)</th><td data-tier="standard" data-feature="priority-updates" class="matrix-included">Included</td><td data-tier="pro" data-feature="priority-updates" class="matrix-included">Included</td><td data-tier="family" data-feature="priority-updates" class="matrix-included">Included</td></tr>
+            <tr><th scope="row">Advanced Reports: Editions with extra tracks</th><td data-tier="standard" data-feature="advanced-reports" class="matrix-excluded">Not included</td><td data-tier="pro" data-feature="advanced-reports" class="matrix-included">Included</td><td data-tier="family" data-feature="advanced-reports" class="matrix-included">Included</td></tr>
+            <tr><th scope="row">Advanced Reports: Missing tracks from owned releases</th><td data-tier="standard" data-feature="advanced-reports" class="matrix-excluded">Not included</td><td data-tier="pro" data-feature="advanced-reports" class="matrix-included">Included</td><td data-tier="family" data-feature="advanced-reports" class="matrix-included">Included</td></tr>
+            <tr><th scope="row">Edition comparison</th><td data-tier="standard" data-feature="edition-comparison" class="matrix-excluded">Not included</td><td data-tier="pro" data-feature="edition-comparison" class="matrix-included">Included</td><td data-tier="family" data-feature="edition-comparison" class="matrix-included">Included</td></tr>
+            <tr><th scope="row">Wishlist</th><td data-tier="standard" data-feature="wishlist" class="matrix-excluded">Not included</td><td data-tier="pro" data-feature="wishlist" class="matrix-included">Included</td><td data-tier="family" data-feature="wishlist" class="matrix-included">Included</td></tr>
+            <tr><th scope="row">Recommendations and optional samples</th><td data-tier="standard" data-feature="recommendations" class="matrix-excluded">Not included</td><td data-tier="pro" data-feature="recommendations" class="matrix-included">Included</td><td data-tier="family" data-feature="recommendations" class="matrix-included">Included</td></tr>
+            <tr><th scope="row">Bulk actions and rich export</th><td data-tier="standard" data-feature="bulk-export" class="matrix-excluded">Not included</td><td data-tier="pro" data-feature="bulk-export" class="matrix-included">Included</td><td data-tier="family" data-feature="bulk-export" class="matrix-included">Included</td></tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row"><span class="sr-only">Get this tier</span></th>
+              <td data-tier="standard"><a class="btn btn-ghost" href="https://missingmusic.lemonsqueezy.com/checkout/buy/97d36ad4-747a-4faa-bc60-33a40ae05907?discount=0" target="_blank" rel="noopener noreferrer">Buy Standard <span class="sr-only">(opens Lemon Squeezy in a new tab)</span></a></td>
+              <td data-tier="pro"><a class="btn btn-primary" href="https://missingmusic.lemonsqueezy.com/checkout/buy/540d79f5-cb9a-4787-b54b-be2e9cc401df?discount=0" target="_blank" rel="noopener noreferrer">Buy Pro <span class="sr-only">(opens Lemon Squeezy in a new tab)</span></a></td>
+              <td data-tier="family"><a class="btn btn-ghost" href="https://missingmusic.lemonsqueezy.com/checkout/buy/a267668c-b837-4261-833c-c7be9577792f?discount=0" target="_blank" rel="noopener noreferrer">Buy Family <span class="sr-only">(opens Lemon Squeezy in a new tab)</span></a></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <p id="matrix-scroll-note" class="matrix-scroll-note">On narrow screens, swipe sideways to compare all three paid tiers. The Feature column stays visible.</p>
+      <p class="fine">Every tier is one-time, with a 30-day refund. Same installer; the demo is the 10-artist cap.</p>
+      <div class="demo-box">
+        <article class="plan-card plan-card--mini" id="free" data-tier="free">
+          <h3>Free demo</h3>
+          <span class="plan-card__price">£0</span>
+          <span class="plan-card__cap">10 artists · full Pro</span>
+          <p class="plan-card__desc">Not ready to choose? Try every feature on a small library before you buy.</p>
+          <a class="btn btn-ghost" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta><span data-release-cta-label>Download the demo</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section faq" id="faq" data-section="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Questions before you choose.</h2>
+      <details><summary>What does the Free demo include?</summary><p>Every feature is available on 10-artist scans, including edition comparison, Wishlist, recommendations, and advanced reports.</p></details>
+      <details><summary>What does Standard leave out?</summary><p>Standard tracks the whole library; see <a href="#matrix">the full tier comparison</a> for what every paid tier adds.</p></details>
+      <details><summary>Are the paid tiers subscriptions?</summary><p>No. Standard, Pro, and Family are one-time purchases. Each has a 30-day refund.</p></details>
+      <details><summary>How do I get a refund?</summary><p>Paid tiers have a 30-day refund, no questions, through Lemon Squeezy. Use the receipt email or the Lemon Squeezy customer portal.</p></details>
+      <details><summary>What is the difference between Pro and Family?</summary><p>They share the same Pro feature depth. Pro activates two machines; Family activates five.</p></details>
+      <details><summary>How do I activate or upgrade a paid tier?</summary><p>Lemon Squeezy emails the key after checkout. In the app: Settings → License. Same installer; the key changes the tier. Standard and Pro allow two machines; Family allows five.</p></details>
+      <details><summary>Do I need a Missing Music account?</summary><p>No. The app has no Missing Music cloud account. Your primary library data stays on your computer.</p></details>
+      <details><summary>Is the Free demo a separate installer?</summary><p>No. Every tier uses the same Windows installer. Without a key, it runs as the Free demo. Lemon Squeezy keys unlock paid tiers.</p></details>
+      <details><summary>Is this Lidarr, Picard, or SongKong?</summary><p>No. Lidarr downloads missing albums. Picard and SongKong rewrite tags. Missing Music shows the gap, including edition differences, and leaves the library alone. We recommend Picard as an optional first tagging pass. We do not recommend a grabber.</p></details>
+      <details><summary>What if Windows SmartScreen blocks the installer?</summary><p>Early builds are unsigned on purpose. Download only from the official GitHub Releases page, compare the SHA-256 hash with SHA256SUMS, then use More info and Run anyway if SmartScreen appears.</p></details>
+    </section>
+  </main>
+
+  <footer class="site-footer page-footer">
+    <p>Missing Music · Windows desktop · built for collectors who own the music.</p>
+    <nav aria-label="Footer">
+      <a href="features.html">Features</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="features.html#trust">Trust and installer notes</a>
+      <a href="https://github.com/lydenyardley/missingmusic/releases">Releases</a>
+      <a href="https://github.com/lydenyardley/missingmusic">View site source</a>
+    </nav>
+  </footer>
+</body>
+</html>
