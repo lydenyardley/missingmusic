@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="See every release you own, the ones you're missing, and the editions that differ — without touching a file or a tag. Full Pro features on 10 artists." />
+  <meta name="description" content="You built the library. This finds the gaps. Full Pro features on 10 artists." />
   <meta name="theme-color" content="#1a1a1a" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Missing Music: Find what's missing from your music library" />
-  <meta property="og:description" content="See every release you own, the ones you're missing, and the editions that differ — without touching a file or a tag. Full Pro features on 10 artists." />
+  <meta property="og:title" content="Missing Music: You built the library. This finds the gaps." />
+  <meta property="og:description" content="You built the library. This finds the gaps. Full Pro features on 10 artists." />
   <meta property="og:url" content="https://lydenyardley.github.io/missingmusic/" />
-  <meta property="og:image" content="https://lydenyardley.github.io/missingmusic/web-app-manifest-512x512.png" />
+  <meta property="og:image" content="https://lydenyardley.github.io/missingmusic/media/hero-library.png" />
   <link rel="canonical" href="https://lydenyardley.github.io/missingmusic/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="favicon-96x96.png" type="image/png" sizes="96x96" />
@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="styles.css" />
   <script>document.documentElement.classList.add('js');</script>
   <script src="site.js" defer></script>
-  <title>Missing Music: Find what's missing from your music library</title>
+  <title>Missing Music: You built the library. This finds the gaps.</title>
 </head>
 <body data-page="home">
   <a class="skip" href="#main">Skip to content</a>
@@ -33,7 +33,11 @@
         </svg>
         <span class="brand-word">Missing&nbsp;<span class="brand-wordmark__music">Music</span></span>
       </a>
-      <nav aria-label="Primary">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+        <span class="nav-toggle__bars" aria-hidden="true"></span>
+        <span class="nav-toggle__label">Menu</span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
         <a class="nav-link" href="features.html">Features</a>
         <a class="nav-link" href="pricing.html">Pricing</a>
         <a class="nav-cta" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta><span data-release-cta-label>Download the demo</span></a>
@@ -44,99 +48,165 @@
   <main id="main" class="page-main">
     <section class="hero page-hero" data-section="hero" aria-labelledby="home-title">
       <div class="hero-copy">
-        <p class="eyebrow reveal" style="--d:.05s">For collectors who own the music.</p>
+        <p class="eyebrow reveal" style="--d:.05s">A Windows app for collectors who own the music.</p>
         <h1 id="home-title" class="reveal" style="--d:.15s">You built the library. This finds the gaps.</h1>
-        <p class="lede reveal" style="--d:.25s">See every release you own, the ones you're missing, and the editions that differ — without touching a file or a tag.</p>
+        <p class="lede reveal" style="--d:.25s">See every release you own, the ones you’re missing, and the editions that differ — without touching a file or a tag.</p>
         <div class="hero-cta-row reveal" style="--d:.3s">
           <a class="btn btn-primary" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta>
             <span data-release-cta-label>Download the demo</span>
           </a>
-          <a class="btn btn-ghost" href="features.html#edition-intelligence">Find bonus tracks</a>
+          <a class="btn btn-ghost" href="features.html#edition-intelligence">Compare editions</a>
         </div>
-        <p class="hero-cta-note reveal" style="--d:.35s">Full Pro features on 10 artists · no account, ads, or subscription. <a href="features.html#trust">Verify SHA-256</a></p>
-        <p class="fine release-note reveal" style="--d:.5s" data-release-note></p>
+        <p class="hero-cta-note reveal" style="--d:.35s">Free 10-artist try · full Pro features · no account, ads, or subscription.</p>
       </div>
       <figure class="hero-proof proof-frame reveal" style="--d:.2s">
-        <img src="media/hero-library.png" width="1440" height="900" fetchpriority="high" decoding="async" alt="Missing Music Library view showing an artist discography with owned and missing releases marked in synthetic demo data." />
+        <img src="media/hero-library.png" width="1440" height="855" fetchpriority="high" decoding="async" alt="Missing Music Library view in dark mode showing an artist discography with owned and missing releases side by side." />
         <figcaption><strong>Owned and missing in one discography.</strong> Start from the folders you already have.</figcaption>
       </figure>
     </section>
 
-    <section class="section gapwall" data-section="gap" aria-labelledby="gapwall-title">
-      <h2 id="gapwall-title" class="observe">Every release in the discography, including the holes.</h2>
-      <p class="section-lede observe">A complete discography puts every release in context, so the gaps stand out.</p>
-      <ul class="wall observe" aria-label="Illustrative matched discography" tabindex="0">
-        <li class="tile observe" style="--d:.0s">
-          <div class="cover cover-1"><span class="cover-initial" aria-hidden="true">H</span><span class="pill pill-owned" aria-hidden="true">✓</span></div>
-          <p class="tile-meta">Hollow Lantern <span>2014 · LP</span></p><span class="sr-only">Owned</span>
-        </li>
-        <li class="tile observe" style="--d:.05s">
-          <div class="cover cover-2"><span class="cover-initial" aria-hidden="true">S</span><span class="pill pill-owned" aria-hidden="true">✓</span></div>
-          <p class="tile-meta">Static Bloom <span>2016 · LP</span></p><span class="sr-only">Owned</span>
-        </li>
-        <li class="tile observe" style="--d:.1s">
-          <div class="cover cover-3"><span class="cover-initial" aria-hidden="true">W</span><span class="pill pill-owned" aria-hidden="true">✓</span></div>
-          <p class="tile-meta">Wayside <span>2017 · EP</span></p><span class="sr-only">Owned</span>
-        </li>
-        <li class="tile tile-gap observe" style="--d:.15s">
-          <div class="cover cover-gap"><span class="gap-disc" aria-hidden="true">◌</span><span class="pill pill-wish" aria-hidden="true">♥</span></div>
-          <p class="tile-meta">Copper Season <span>2019 · LP · <em class="tag-missing">Missing</em></span></p><span class="sr-only">Missing, on your Wishlist</span>
-        </li>
-        <li class="tile observe" style="--d:.2s">
-          <div class="cover cover-4"><span class="cover-initial" aria-hidden="true">N</span><span class="pill pill-owned" aria-hidden="true">✓</span></div>
-          <p class="tile-meta">Night Ferry <span>2020 · Single</span></p><span class="sr-only">Owned</span>
-        </li>
-        <li class="tile observe" style="--d:.25s">
-          <div class="cover cover-5"><span class="cover-initial" aria-hidden="true">G</span><span class="pill pill-owned" aria-hidden="true">✓</span></div>
-          <p class="tile-meta">Grain &amp; Static <span>2022 · LP</span></p><span class="sr-only">Owned</span>
-        </li>
-        <li class="tile tile-gap observe" style="--d:.3s">
-          <div class="cover cover-gap"><span class="gap-disc" aria-hidden="true">◌</span></div>
-          <p class="tile-meta">Tidal Maps <span>2023 · EP · <em class="tag-missing">Missing</em></span></p><span class="sr-only">Missing</span>
-        </li>
-        <li class="tile observe" style="--d:.35s">
-          <div class="cover cover-6"><span class="cover-initial" aria-hidden="true">K</span><span class="pill pill-owned" aria-hidden="true">✓</span></div>
-          <p class="tile-meta">Live at Kelvin Hall <span>2024 · LP</span></p><span class="sr-only">Owned</span>
-        </li>
+    <section class="section feature-tiles" data-section="feature-bridge" aria-labelledby="does-title">
+      <h2 id="does-title" class="observe">Features at a glance</h2>
+      <ul class="feature-tiles__grid observe">
+          <li class="feature-tile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 8v5"/></svg>
+            <h3><a href="features.html#missing-visibility">Missing releases</a></h3>
+            <p>See every release you’re missing, filtered your way.</p>
+          </li>
+          <li class="feature-tile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7h12M8 12h12M8 17h8"/><path d="M4 7h.01M4 12h.01M4 17h.01"/></svg>
+            <h3><a href="features.html#missing-tracks">Missing tracks</a></h3>
+            <p>Find albums you own that are short a track.</p>
+            <p class="feature-tile__tier">Pro and Family</p>
+          </li>
+          <li class="feature-tile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8h11v11H8z"/><path d="M5 5h11v3"/></svg>
+            <h3><a href="features.html#editions-extra-tracks">Editions with extra tracks</a></h3>
+            <p>Spot deluxe, remastered, and expanded editions with more tracks.</p>
+            <p class="feature-tile__tier">Pro and Family</p>
+          </li>
+          <li class="feature-tile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h7v12H4zM13 6h7v12h-7z"/></svg>
+            <h3><a href="features.html#edition-intelligence">Edition comparison</a></h3>
+            <p>Compare two editions track by track before you decide.</p>
+            <p class="feature-tile__tier">Pro and Family</p>
+          </li>
+          <li class="feature-tile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19s-7-4.4-7-9a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 4.6-7 9-7 9z"/></svg>
+            <h3><a href="features.html#wishlist">Wishlist</a></h3>
+            <p>Save the releases you mean to find, with your notes.</p>
+            <p class="feature-tile__tier">Pro and Family</p>
+          </li>
+          <li class="feature-tile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>
+            <h3><a href="features.html#upcoming-releases">Upcoming releases</a></h3>
+            <p>See what’s scheduled for the artists you collect.</p>
+          </li>
+          <li class="feature-tile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h9l3 3v13H6z"/><path d="M9 12h6M9 16h6"/></svg>
+            <h3><a href="features.html#reports">Reports</a></h3>
+            <p>Built-in reports on every tier. Advanced and custom reports on Pro and Family.</p>
+          </li>
+          <li class="feature-tile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 19h14"/></svg>
+            <h3><a href="features.html#export">Export</a></h3>
+            <p>Export as Markdown or CSV, or print.</p>
+          </li>
       </ul>
-      <ul class="legend observe" aria-label="Legend">
-        <li><span class="pill pill-owned" aria-hidden="true">✓</span> Owned</li>
-        <li><span class="gap-disc" aria-hidden="true">◌</span> Missing</li>
-        <li><span class="pill pill-wish" aria-hidden="true">♥</span> On your Wishlist</li>
-      </ul>
+      <p class="feature-tiles__more observe"><a href="features.html#at-a-glance">See every feature</a></p>
+    </section>
+
+    <section class="section type-band" data-section="gap" aria-labelledby="gapwall-title">
+      <h2 id="gapwall-title" class="observe">Owned and missing releases, in one discography.</h2>
+      <p class="release-chips-intro observe">Works across every release type, matching how you collect. Use the interactive demo: the filters rearrange it the way the app does.</p>
+      <div class="disc-demo observe" data-disc-demo>
+        <div class="disc-demo__bar">
+          <div class="disc-demo__own" role="group" aria-label="Ownership">
+            <span class="disc-demo__kicker">Library</span>
+            <button type="button" data-own="all" aria-pressed="true">All</button>
+            <button type="button" data-own="missing" aria-pressed="false">Missing</button>
+            <button type="button" data-own="owned" aria-pressed="false">Owned</button>
+          </div>
+          <div class="disc-demo__types" role="group" aria-label="Release types">
+            <span class="disc-demo__kicker">Type</span>
+            <button type="button" data-type="Album" aria-pressed="true">Album</button>
+            <button type="button" data-type="Live" aria-pressed="true">Live</button>
+            <button type="button" data-type="EP" aria-pressed="false">EP</button>
+            <button type="button" data-type="Single" aria-pressed="false">Single</button>
+            <button type="button" data-type="Compilation" aria-pressed="false">Compilation</button>
+            <button type="button" data-type="Other" aria-pressed="false">Other</button>
+          </div>
+        </div>
+        <ul class="disc-demo__grid">
+          <li data-type="Album" data-own="owned"><span class="disc-art" style="--h:28"></span><span class="disc-banner">Album</span><span class="disc-title">North Pier</span><span class="disc-meta">2014</span></li>
+          <li data-type="Album" data-own="owned"><span class="disc-art" style="--h:152"></span><span class="disc-banner">Album</span><span class="disc-title">Static Bloom</span><span class="disc-meta">2016</span></li>
+          <li data-type="Album" data-own="missing"><span class="disc-art disc-art--gap" style="--h:210"></span><span class="disc-banner">Album</span><span class="disc-title">Copper Season</span><span class="disc-meta">2019 · Missing</span></li>
+          <li data-type="Live" data-own="owned"><span class="disc-art" style="--h:12"></span><span class="disc-banner">Live</span><span class="disc-title">Kelvin Hall</span><span class="disc-meta">2018</span></li>
+          <li data-type="Album" data-own="owned"><span class="disc-art" style="--h:86"></span><span class="disc-banner">Album</span><span class="disc-title">Grain and Static</span><span class="disc-meta">2022</span></li>
+          <li data-type="Live" data-own="missing"><span class="disc-art disc-art--gap" style="--h:330"></span><span class="disc-banner">Live</span><span class="disc-title">Late Show</span><span class="disc-meta">2021 · Missing</span></li>
+          <li data-type="Album" data-own="missing"><span class="disc-art disc-art--gap" style="--h:48"></span><span class="disc-banner">Album</span><span class="disc-title">Tidal Maps</span><span class="disc-meta">2023 · Missing</span></li>
+          <li data-type="Live" data-own="owned"><span class="disc-art" style="--h:188"></span><span class="disc-banner">Live</span><span class="disc-title">Room Tone</span><span class="disc-meta">2015</span></li>
+          <li data-type="Album" data-own="owned"><span class="disc-art" style="--h:262"></span><span class="disc-banner">Album</span><span class="disc-title">Wayside</span><span class="disc-meta">2017</span></li>
+          <li data-type="Album" data-own="owned"><span class="disc-art" style="--h:300"></span><span class="disc-banner">Album</span><span class="disc-title">Night Ferry</span><span class="disc-meta">2020</span></li>
+          <li data-type="Live" data-own="missing"><span class="disc-art disc-art--gap" style="--h:96"></span><span class="disc-banner">Live</span><span class="disc-title">Pier Lights</span><span class="disc-meta">2024 · Missing</span></li>
+          <li data-type="Album" data-own="missing"><span class="disc-art disc-art--gap" style="--h:18"></span><span class="disc-banner">Album</span><span class="disc-title">Hollow Lantern</span><span class="disc-meta">2011 · Missing</span></li>
+          <li hidden data-type="EP" data-own="owned"><span class="disc-art" style="--h:200"></span><span class="disc-banner">EP</span><span class="disc-title">Short Wave</span><span class="disc-meta">2019</span></li>
+          <li hidden data-type="EP" data-own="missing"><span class="disc-art disc-art--gap" style="--h:140"></span><span class="disc-banner">EP</span><span class="disc-title">Two Coasts</span><span class="disc-meta">2020 · Missing</span></li>
+          <li hidden data-type="Single" data-own="owned"><span class="disc-art" style="--h:40"></span><span class="disc-banner">Single</span><span class="disc-title">Paper City</span><span class="disc-meta">2021</span></li>
+          <li hidden data-type="Single" data-own="missing"><span class="disc-art disc-art--gap" style="--h:250"></span><span class="disc-banner">Single</span><span class="disc-title">Last Tram</span><span class="disc-meta">2022 · Missing</span></li>
+          <li hidden data-type="Compilation" data-own="owned"><span class="disc-art" style="--h:70"></span><span class="disc-banner">Compilation</span><span class="disc-title">Years in Between</span><span class="disc-meta">2013</span></li>
+          <li hidden data-type="Other" data-own="missing"><span class="disc-art disc-art--gap" style="--h:310"></span><span class="disc-banner">Other</span><span class="disc-title">Night Desk</span><span class="disc-meta">2016 · Missing</span></li>
+          <li hidden data-type="EP" data-own="owned"><span class="disc-art" style="--h:16"></span><span class="disc-banner">EP</span><span class="disc-title">Low Tide</span><span class="disc-meta">2018</span></li>
+          <li hidden data-type="EP" data-own="missing"><span class="disc-art disc-art--gap" style="--h:64"></span><span class="disc-banner">EP</span><span class="disc-title">Glasshouse</span><span class="disc-meta">2021 · Missing</span></li>
+          <li hidden data-type="EP" data-own="owned"><span class="disc-art" style="--h:118"></span><span class="disc-banner">EP</span><span class="disc-title">Four Corners</span><span class="disc-meta">2016</span></li>
+          <li hidden data-type="EP" data-own="owned"><span class="disc-art" style="--h:176"></span><span class="disc-banner">EP</span><span class="disc-title">After Image</span><span class="disc-meta">2023</span></li>
+          <li hidden data-type="Single" data-own="owned"><span class="disc-art" style="--h:22"></span><span class="disc-banner">Single</span><span class="disc-title">Red Thread</span><span class="disc-meta">2017</span></li>
+          <li hidden data-type="Single" data-own="missing"><span class="disc-art disc-art--gap" style="--h:90"></span><span class="disc-banner">Single</span><span class="disc-title">Platform 4</span><span class="disc-meta">2019 · Missing</span></li>
+          <li hidden data-type="Single" data-own="owned"><span class="disc-art" style="--h:230"></span><span class="disc-banner">Single</span><span class="disc-title">Salt Line</span><span class="disc-meta">2024</span></li>
+          <li hidden data-type="Compilation" data-own="missing"><span class="disc-art disc-art--gap" style="--h:36"></span><span class="disc-banner">Compilation</span><span class="disc-title">Harbour Songs</span><span class="disc-meta">2012 · Missing</span></li>
+          <li hidden data-type="Compilation" data-own="owned"><span class="disc-art" style="--h:160"></span><span class="disc-banner">Compilation</span><span class="disc-title">Early Rooms</span><span class="disc-meta">2009</span></li>
+          <li hidden data-type="Compilation" data-own="owned"><span class="disc-art" style="--h:280"></span><span class="disc-banner">Compilation</span><span class="disc-title">B-sides</span><span class="disc-meta">2015</span></li>
+          <li hidden data-type="Other" data-own="owned"><span class="disc-art" style="--h:54"></span><span class="disc-banner">Other</span><span class="disc-title">Studio 2</span><span class="disc-meta">2010</span></li>
+          <li hidden data-type="Other" data-own="missing"><span class="disc-art disc-art--gap" style="--h:128"></span><span class="disc-banner">Other</span><span class="disc-title">Evening Slot</span><span class="disc-meta">2014 · Missing</span></li>
+          <li hidden data-type="Other" data-own="owned"><span class="disc-art" style="--h:244"></span><span class="disc-banner">Other</span><span class="disc-title">Open Mic</span><span class="disc-meta">2018</span></li>
+        </ul>
+        <p class="disc-demo__empty" hidden>No release matches the selected Library and Type filters.</p>
+      </div>
     </section>
 
     <section class="section report-feature" data-section="edition-intelligence" aria-labelledby="edition-title">
-      <div class="report-feature__intro">
-        <h2 id="edition-title" class="observe">Some pressings have more. This finds them.</h2>
-        <p class="observe">Compare editions track by track. Two reports other tools skip:</p>
-        <ul class="report-list">
-          <li><strong>Editions with extra tracks.</strong> Albums with a deluxe, remaster, or expanded edition you do not have.</li>
-          <li><strong>Missing tracks from owned releases.</strong> Albums that look owned but are missing tracks.</li>
-        </ul>
-        <p class="hero-wedge observe">Lidarr downloads. Picard and SongKong rewrite tags. Missing Music shows the difference, then gets out of the way.</p>
-      </div>
-      <div class="report-gallery">
-        <figure class="proof-frame report-gallery__hero observe">
-          <img src="media/edition-comparison.svg" width="1440" height="900" decoding="async" alt="Illustrated edition comparison: an owned 2014 pressing aligned track by track with a 2018 remaster that adds three extra tracks. Demo data." />
-          <figcaption><strong>Compare before you decide.</strong> A pressing, remaster, or reissue can be materially different. Illustrated with demo data.</figcaption>
-        </figure>
-        <div class="report-gallery__support">
-          <figure class="proof-frame observe">
-            <img src="media/report-extended-editions.svg" width="1440" height="900" decoding="async" alt="Illustrated report listing owned albums that have catalog editions with extra tracks. Demo data." />
-            <figcaption><strong>Editions with extra tracks.</strong> Identify the releases worth investigating. Illustrated with demo data.</figcaption>
-          </figure>
-          <figure class="proof-frame observe">
-            <img src="media/report-missing-tracks.svg" width="1440" height="900" decoding="async" alt="Illustrated report listing owned releases whose local track count is lower than the catalog. Demo data." />
-            <figcaption><strong>Missing tracks from owned releases.</strong> Find incomplete copies that look owned. Illustrated with demo data.</figcaption>
-          </figure>
+      <figure class="shot-pair shot-pair--end" data-slide="end">
+        <figcaption>
+          <h2 id="edition-title" class="observe">Some pressings have more. This finds them.</h2>
+          <p class="observe">Compare editions track by track. A pressing, remaster, or reissue can carry a different track list.</p>
+        </figcaption>
+        <div class="shot-pair__frame proof-frame">
+          <img src="media/edition-comparison.png" width="1440" height="900" decoding="async" alt="Missing Music edition comparison in dark mode: owned GB CD of Bonobo Fragments beside a Japan edition that adds one track and shows one duration difference." />
         </div>
-      </div>
+      </figure>
+      <figure class="shot-pair shot-pair--start" data-slide="start">
+        <div class="shot-pair__frame proof-frame">
+          <img src="media/report-extended-editions.png" width="1440" height="900" decoding="async" alt="Missing Music report Albums with extended editions available, listing owned editions beside catalog editions with more tracks." />
+        </div>
+        <figcaption>
+          <h2 class="observe">Editions with extra tracks.</h2>
+          <p class="observe">Albums with a deluxe, remaster, or expanded edition you do not have.</p>
+        </figcaption>
+      </figure>
+      <figure class="shot-pair shot-pair--end" data-slide="end">
+        <figcaption>
+          <h2 class="observe">Missing tracks from owned releases.</h2>
+          <p class="observe">Digital files can get lost or corrupted over time. Now you know.</p>
+        </figcaption>
+        <div class="shot-pair__frame proof-frame">
+          <img src="media/report-missing-tracks.svg" width="1440" height="900" decoding="async" alt="Example report of owned albums whose local track count is lower than the catalog." />
+        </div>
+      </figure>
     </section>
 
     <section class="section pricing" data-section="pricing-preview" aria-labelledby="pricing-preview-title">
-      <h2 id="pricing-preview-title" class="observe">Try it on 10 of your artists.</h2>
-      <p class="section-lede observe">The demo is full Pro on 10 artists.</p>
+      <h2 id="pricing-preview-title" class="observe">Try it free on 10 of your artists.</h2>
+      <p class="section-lede observe">Only the scan is capped, at 10 artists. Every feature runs in full — edition comparison, Wishlist, similar artists, and advanced reports.</p>
       <div class="plan-grid plan-grid--duo observe">
         <article class="plan-card" data-tier="free">
           <h3>Free demo</h3>
@@ -148,21 +218,33 @@
         <article class="plan-card plan-card--pro" data-tier="pro">
           <h3>Pro</h3>
           <span class="plan-card__price">£25</span>
-          <span class="plan-card__cap">2 machines · one-time</span>
-          <span class="plan-card__badge">Most collectors choose this</span>
-          <p class="plan-card__use">Find pressings with bonus tracks, spot incomplete copies, and more.</p>
-          <a class="btn btn-ghost" href="pricing.html#pro">See Pro</a>
+          <span class="plan-card__cap">2 devices · one-time</span>
+          <p class="plan-card__use">Find pressings with bonus tracks, spot incomplete copies, and save a Wishlist.</p>
+          <a class="btn btn-ghost" href="pricing.html#matrix">Compare all tiers</a>
         </article>
+      </div>
+      <p class="platform-note observe">Windows installer available now. Linux and macOS builds are coming soon.</p>
+    </section>
+
+    <section class="section final-cta" data-section="final-cta" aria-labelledby="home-next-title">
+      <h2 id="home-next-title">Download the demo, or compare Standard, Pro, and Family.</h2>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta><span data-release-cta-label>Download the demo</span></a>
+        <a class="btn btn-ghost" href="pricing.html">Compare all tiers</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer page-footer">
-    <p>Missing Music · Windows desktop · built for collectors who own the music.</p>
+    <div class="site-footer__meta">
+      <p>A Windows app for collectors who own the music.</p>
+      <p class="site-footer__release" data-release-note></p>
+    </div>
     <nav aria-label="Footer">
       <a href="features.html">Features</a>
       <a href="pricing.html">Pricing</a>
       <a href="features.html#trust">Trust and installer notes</a>
+      <a href="privacy.html">Privacy</a>
       <a href="https://github.com/lydenyardley/missingmusic/releases">Releases</a>
       <a href="https://github.com/lydenyardley/missingmusic">View site source</a>
     </nav>

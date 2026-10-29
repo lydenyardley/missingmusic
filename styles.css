@@ -61,8 +61,11 @@
   --recessed: rgba(255, 255, 255, 0.05);
 
   --text: #e5e5e5;
-  --muted: #a5a5a5;
-  --faint: #999999;
+  /* T-29 · legend / footer / fine print were #a5a5a5 / #999 on #1a1a1a.
+     Lifted to 8.6:1 and 7.8:1 against --bg while staying clearly below
+     --text (#e5e5e5, 12.6:1) so the calm hierarchy survives. */
+  --muted: #b6b6b6;
+  --faint: #adadad;
 
   --bronze: #b27a30;
   --tan: #e3c297;
@@ -95,6 +98,41 @@
 
   --maxw: 72rem;
   --anchor-offset: 5rem;
+
+  /* T-21 · one shared measure so display and body lines start and end
+     together instead of each section inventing its own width. */
+  --measure-display: 44rem;
+  --measure-lede: 45rem;
+
+  /* T-22 · sticky-header surfaces, tokenised so the light preview keeps
+     winning over the scrolled state. */
+  --header-bg: rgba(26, 26, 26, 0.78);
+  --header-bg-scrolled: rgba(26, 26, 26, 0.92);
+}
+
+/* —— Marketing theme preview (R-11); does not claim to be the app —— */
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4efe8;
+  --surface: #ffffff;
+  --surface-1: #efe8df;
+  --surface-2: #e5ddd2;
+  --recessed: rgba(0, 0, 0, 0.04);
+  --text: #1c1814;
+  --muted: #5c5348;
+  --faint: #7a7166;
+  --border: rgba(28, 24, 20, 0.12);
+  --border-strong: rgba(28, 24, 20, 0.22);
+  --hairline: rgba(28, 24, 20, 0.08);
+  --color-text-primary: var(--text);
+  --accent-ink: #1a1a1a;
+  --header-bg: color-mix(in srgb, var(--bg) 92%, transparent);
+  --header-bg-scrolled: color-mix(in srgb, var(--bg) 97%, transparent);
+}
+html[data-theme="light"] body::before {
+  background:
+    radial-gradient(1200px 600px at 10% -4%, color-mix(in srgb, var(--bronze) 10%, transparent), transparent 50%),
+    radial-gradient(1000px 580px at 102% -2%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 45%);
 }
 
 * { box-sizing: border-box; }
@@ -115,11 +153,29 @@ body {
   line-height: 1.6;
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   color: var(--text);
+  background: var(--bg);
+}
+
+/* Ambient wash · lives on a fixed layer instead of on `body` because a
+   `background-image` on `body` propagates to the canvas, where the
+   positioning area is the whole document box (3.7k–7.7kpx tall on these
+   pages) rather than the viewport. `at 10% -4%` therefore resolved ~190px
+   above the document top and the page painted as flat `--bg` for its entire
+   length; `at 50% 35%` landed a third of the way down the document instead of
+   the fold. Fixed keeps the stops against the frame they were written for
+   (bronze top-left, accent top-right, a soft mid-fold lift) at every scroll
+   position, and `body` keeps `background: var(--bg)` so the canvas stays
+   painted under the layer and past its edges. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background:
     radial-gradient(1200px 600px at 10% -4%, color-mix(in srgb, var(--bronze) 12%, transparent), transparent 50%),
     radial-gradient(1000px 580px at 102% -2%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 45%),
-    radial-gradient(800px 400px at 50% 35%, color-mix(in srgb, var(--bronze) 3%, transparent), transparent 60%),
-    var(--bg);
+    radial-gradient(800px 400px at 50% 35%, color-mix(in srgb, var(--bronze) 3%, transparent), transparent 60%);
 }
 
 ::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); color: var(--text); }
@@ -169,12 +225,20 @@ main :where(p, li, td) a:hover { border-bottom-color: var(--accent); }
   top: 0;
   z-index: 20;
   width: 100%;
-  background: rgba(26, 26, 26, 0.78);
+  background: var(--header-bg);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--hairline);
+  transition: background-color 200ms var(--ease), border-color 200ms var(--ease);
+}
+/* T-22 · calm persistence: a hairline and a touch more opacity once the page
+   has scrolled. No growth, no mega-nav, no height change at any width. */
+.site-header.is-scrolled {
+  background: var(--header-bg-scrolled);
+  border-bottom-color: var(--border);
 }
 .site-header__inner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -209,6 +273,55 @@ main :where(p, li, td) a:hover { border-bottom-color: var(--accent); }
   align-items: center;
   gap: 1.1rem;
 }
+.site-nav { flex: none; }
+
+/* T-24 · small-screen menu. Hidden on desktop; under 620px the primary nav
+   collapses behind a real <button> so Features, Pricing, and Download never
+   compete for one clipped row. The collapse is gated on `html.js`, and the
+   `html:not(.js)` rules further down give no-JS visitors a wrapping row
+   instead — so the links are reachable either way. */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 650;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.nav-toggle__bars {
+  position: relative;
+  width: 1rem;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: background-color 150ms var(--ease);
+}
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 180ms var(--ease), top 180ms var(--ease);
+}
+.nav-toggle__bars::before { top: -5px; }
+.nav-toggle__bars::after { top: 5px; }
+.nav-toggle[aria-expanded='true'] .nav-toggle__bars { background: transparent; }
+.nav-toggle[aria-expanded='true'] .nav-toggle__bars::before { top: 0; transform: rotate(45deg); }
+.nav-toggle[aria-expanded='true'] .nav-toggle__bars::after { top: 0; transform: rotate(-45deg); }
+.nav-toggle:hover { border-color: var(--accent); }
+
 .nav-link {
   display: inline-flex;
   align-items: center;
@@ -250,6 +363,7 @@ main :where(p, li, td) a:hover { border-bottom-color: var(--accent); }
   margin: 0;
   color: var(--faint);
   font-size: 0.8125rem;
+  font-weight: 500;
   line-height: 1.45;
 }
 .hero-cta-note a { color: var(--accent); }
@@ -281,7 +395,14 @@ h2 {
   font-family: var(--font-display);
   font-stretch: var(--font-display-stretch);
   letter-spacing: -0.035em;
+  /* T-21 · even line lengths keep each section headline reading as one
+     strong block instead of a full-width plus a stranded word. */
+  text-wrap: balance;
 }
+
+/* T-21 · the display ramp is pinned to DESIGN.md
+   `typography.landing-marketing-*`: h1 2.6rem→3.6rem, h2 2rem→2.75rem,
+   mobile h1 2.5rem. Keep Archivo + Inter; add no new families. */
 
 h1 {
   max-width: 46rem;
@@ -292,7 +413,10 @@ h1 {
   line-height: 1.02;
 }
 
+/* One display measure, shared with the lede, so every section headline reads
+   as a single strong line or a clean pair rather than a ragged third line. */
 h2 {
+  max-width: var(--measure-display);
   margin: 0 0 1.1rem;
   font-size: clamp(2rem, 3vw, 2.75rem);
   font-weight: 600;
@@ -302,38 +426,42 @@ h2 {
 h3 { font-size: 1.2rem; line-height: 1.25; font-weight: 600; }
 
 .section-lede {
-  max-width: 45rem;
+  max-width: var(--measure-lede);
   margin: 0 0 2.5rem;
   color: var(--muted);
-  font-size: 1.1rem;
+  font-size: 1em;
   line-height: 1.55;
 }
 
-.fine { margin: 0; color: var(--muted); font-size: 0.875rem; }
+/* T-29 · fine print keeps its size but gets weight so it stays readable
+   without competing with body copy. */
+.fine { margin: 0; color: var(--muted); font-size: 0.875rem; font-weight: 500; }
 
 /* ── Hero ───────────────────────────────────────────────────────────────── */
 
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-  align-items: center;
-  gap: 4rem;
-  padding: 5.25rem 0 5.5rem;
+  display: block;
+  padding: 4.5rem 0 4rem;
 }
-.hero-wedge {
-  grid-column: 1 / -1;
-  max-width: 52rem;
-  margin: 0;
-  color: var(--tan);
-  font-size: 1.05rem;
-  font-weight: 550;
-  line-height: 1.45;
+.hero .hero-copy {
+  max-width: 42rem;
+  margin-inline: auto;
+  text-align: center;
 }
-.section .hero-wedge {
-  grid-column: auto;
-  margin-top: 1.5rem;
+.hero .release-chips,
+.hero .hero-cta-row {
+  justify-content: center;
 }
-.release-note:empty { display: none; }
+.hero .hero-proof {
+  margin: 2.75rem auto 0;
+  max-width: 100%;
+}
+.hero .hero-proof img {
+  /* Intrinsic is 1440×855. Do not let layout request a larger bitmap. */
+  width: min(100%, 1440px);
+  height: auto;
+  margin-inline: auto;
+}
 .cta-note {
   margin: 0.75rem 0 0;
   color: var(--faint);
@@ -346,7 +474,7 @@ h3 { font-size: 1.2rem; line-height: 1.25; font-weight: 600; }
   max-width: 38rem;
   margin: 0 0 2.25rem;
   color: var(--muted);
-  font-size: 1.2rem;
+  font-size: 1em;
   line-height: 1.5;
   font-weight: 400;
 }
@@ -398,6 +526,25 @@ html.js.io-ready .observe {
 }
 html.js.io-ready .observe.in { opacity: 1; transform: none; }
 
+/* T-20 · screenshot-frame micro-interaction. The transform selectors are
+   written at `.in` specificity so a revealed frame is not pinned by the
+   reveal rule above; the border/shadow cue also covers keyboard focus on
+   the zoomable image `site.js` gives a tabindex. */
+html .proof-frame:not(.shot-pair__frame):focus-within,
+html.js.io-ready .proof-frame.observe.in:not(.shot-pair__frame):focus-within {
+  border-color: color-mix(in srgb, var(--bronze) 55%, var(--border));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.36);
+  transform: translateY(-2px);
+}
+@media (hover: hover) and (pointer: fine) {
+  html .proof-frame:not(.shot-pair__frame):hover,
+  html.js.io-ready .proof-frame.observe.in:not(.shot-pair__frame):hover {
+    border-color: color-mix(in srgb, var(--bronze) 55%, var(--border));
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.36);
+    transform: translateY(-2px);
+  }
+}
+
 /* ── Proof surfaces ─────────────────────────────────────────────────────── */
 
 .proof-frame {
@@ -407,6 +554,11 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.28);
+  /* T-20 · one-shot hover/focus lift. The lightbox stays the deep zoom. */
+  transition:
+    transform 180ms var(--ease),
+    border-color 180ms var(--ease),
+    box-shadow 180ms var(--ease);
 }
 .proof-frame img {
   display: block;
@@ -449,9 +601,69 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
 .proof-placeholder span:last-child {
   max-width: 32ch;
   color: var(--muted);
-  font-size: 0.9375rem;
+  font-size: 1em;
 }
 .hero-proof { align-self: center; max-width: 100%; }
+
+/* —— Proof lightbox (natural size, never upscaled) ———————————— */
+
+.proof-frame__zoomable {
+  cursor: zoom-in;
+}
+.proof-lightbox {
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: none;
+  max-height: none;
+  width: min(100vw, 100%);
+  height: min(100vh, 100%);
+}
+.proof-lightbox::backdrop {
+  background: rgba(6, 5, 4, 0.88);
+}
+.proof-lightbox__chrome {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  margin: 0;
+}
+.proof-lightbox__close {
+  appearance: none;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 650;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+}
+.proof-lightbox__close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.proof-lightbox__stage {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 3.25rem 1rem 1rem;
+  overflow: auto;
+}
+.proof-lightbox__img {
+  display: block;
+  width: auto;
+  height: auto;
+  /* Fit stage, never past intrinsic (JS sets --proof-natural-* on open). */
+  max-width: min(100%, var(--proof-natural-w, 100%));
+  max-height: min(calc(100vh - 4.25rem), var(--proof-natural-h, 100%));
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+}
 
 /* ── Gap wall ───────────────────────────────────────────────────────────── */
 
@@ -476,6 +688,7 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
   margin-top: 0.15rem;
   color: var(--faint);
   font-size: 0.8125rem;
+  font-weight: 500;
 }
 .tag-missing { color: var(--rose); font-style: normal; }
 
@@ -553,6 +766,8 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
   padding: 0;
   color: var(--muted);
   font-size: 0.875rem;
+  /* T-29 · weight lift keeps the legend readable against the dark wall. */
+  font-weight: 500;
   list-style: none;
 }
 .legend li { display: inline-flex; align-items: center; gap: 0.5rem; }
@@ -580,7 +795,7 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
   line-height: 1;
 }
 .step h3 { margin: 0 0 0.55rem; font-size: 1.2rem; }
-.step p { margin: 0; color: var(--muted); font-size: 1rem; }
+.step p { margin: 0; color: var(--muted); font-size: 1em; }
 
 /* ── Guided sections ────────────────────────────────────────────────────── */
 
@@ -589,7 +804,7 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
 .page-hero__actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 1.7rem; }
 .page-hero--split {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr);
   align-items: center;
   gap: 4rem;
 }
@@ -641,7 +856,7 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
   font-size: 1.1rem;
 }
 .catalog-map__row span { color: var(--accent); font-size: 1.6rem; }
-.catalog-map p { margin: 0; color: var(--muted); font-size: 0.9375rem; }
+.catalog-map p { margin: 0; color: var(--muted); font-size: 1em; }
 
 .gap-board {
   display: grid;
@@ -674,30 +889,122 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
 
 .report-feature { padding-top: 6rem; }
 .report-feature__intro { max-width: 54rem; }
-.report-feature__intro > p:not(.kicker) { max-width: 52rem; color: var(--muted); font-size: 1.1rem; }
+/* T-21 · the Features catalogue paragraphs share the gap-story measure. */
+.report-feature__intro > p:not(.kicker) { max-width: var(--measure-lede); color: var(--muted); font-size: 1em; }
 .report-list {
   display: grid;
   gap: 0.55rem;
-  max-width: 52rem;
+  max-width: var(--measure-lede);
   margin: 1rem 0 0;
   padding-left: 1.25rem;
   color: var(--muted);
-  font-size: 1.1rem;
+  font-size: 1em;
   line-height: 1.5;
 }
 .report-list strong { color: var(--text); font-weight: 650; }
 .report-list li::marker { color: var(--tan); }
-.report-gallery { display: grid; gap: 1.25rem; margin-top: 3rem; }
-.report-gallery__hero { width: 100%; }
-.report-gallery__support { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
-.report-gallery__support .proof-frame { min-width: 0; }
+.shot-pair {
+  --peek: 2.75rem;
+  --gutter: max(0px, calc((100vw - var(--maxw)) / 2 + 1.75rem));
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.618fr) minmax(0, 1fr);
+  gap: 2rem 2.5rem;
+  align-items: center;
+  margin: 0;
+  padding: 3.5rem 0;
+}
+.shot-pair + .shot-pair { border-top: 1px solid var(--hairline); }
+.shot-pair--start { grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.618fr); }
+.shot-pair figcaption { min-width: 0; }
+.shot-pair figcaption h2 { margin-top: 0; }
+.shot-pair figcaption p { margin: 0.75rem 0 0; color: var(--muted); font-size: 1em; }
+.shot-pair__frame {
+  min-width: 0;
+  transform: translateX(calc(var(--gutter) + var(--peek)));
+}
+.shot-pair--start .shot-pair__frame {
+  transform: translateX(calc(-1 * (var(--gutter) + var(--peek))));
+}
+/* Past --maxw the gutter keeps sliding the window off its column.
+   Grow by half of how far the long edge passes that max, which is the
+   extra gutter, so the shot comes back toward the column and the peek stays. */
+@media (min-width: 1170px) {
+  .shot-pair {
+    --shot-grow: min(40rem, max(0px, (max(100vw, 100vh) - var(--maxw)) / 2));
+    /* The gutter is exactly the distance from the column edge to the window
+       edge, so adding the peek pushed the frame 44px past the viewport at
+       1440px (right edge 1484). Drop the peek past --maxw and the window
+       bleeds flush to the frame with no sideways overflow. */
+    --peek: 0px;
+  }
+  .shot-pair__frame {
+    width: calc(100% + var(--shot-grow));
+    justify-self: end;
+  }
+  .shot-pair--start .shot-pair__frame {
+    justify-self: start;
+  }
+}
+html.js .shot-pair__frame {
+  transform: translateX(calc(9vw + var(--gutter) + var(--peek)));
+  transition: transform 780ms cubic-bezier(.22, .8, .2, 1);
+}
+html.js .shot-pair--start .shot-pair__frame {
+  transform: translateX(calc(-9vw - var(--gutter) - var(--peek)));
+}
+html.js .shot-pair.is-in .shot-pair__frame {
+  transform: translateX(calc(var(--gutter) + var(--peek)));
+}
+html.js .shot-pair--start.is-in .shot-pair__frame {
+  transform: translateX(calc(-1 * (var(--gutter) + var(--peek))));
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .shot-pair__frame,
+  html.js .shot-pair.is-in .shot-pair__frame {
+    transition: none;
+    transform: translateX(calc(var(--gutter) + var(--peek)));
+  }
+  html.js .shot-pair--start .shot-pair__frame,
+  html.js .shot-pair--start.is-in .shot-pair__frame {
+    transform: translateX(calc(-1 * (var(--gutter) + var(--peek))));
+  }
+}
 
 /* ── Cards and trust ────────────────────────────────────────────────────── */
 
-.trust-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.25rem; }
+.trust-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.25rem; }
 .trust-card { padding: 1.5rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
 .trust-card h3 { margin: 0 0 0.65rem; font-size: 1.15rem; }
-.trust-card p { margin: 0; color: var(--muted); font-size: 0.9375rem; }
+.trust-card p { margin: 0; color: var(--muted); font-size: 1em; }
+
+/* T-23 · honest trust hierarchy: each claim gets a short bronze rule and a
+   display title so the cards scan as a list of checkable statements. The
+   installer note is the one place a visitor is asked to act, so it reads
+   as the primary card. No logos, quotes, or ratings. */
+#trust .trust-cards .trust-card::before,
+#trust .install-note::before {
+  content: '';
+  display: block;
+  width: 2.25rem;
+  height: 2px;
+  margin-bottom: 0.9rem;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--bronze) 75%, transparent);
+}
+#trust .trust-card h3,
+#trust .install-note h3 {
+  font-family: var(--font-display);
+  font-stretch: 96%;
+  font-weight: 650;
+}
+#trust .trust-cards .trust-card p,
+#trust .install-note > p,
+#trust .install-note ol { font-weight: 500; }
+#trust .install-note {
+  border-color: color-mix(in srgb, var(--bronze) 55%, var(--border));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bronze) 7%, var(--surface)), var(--surface) 60%);
+}
+#trust .install-note h3 { color: var(--tan); }
 
 .tool-context { margin: 2.25rem 0 0; border-top: 1px solid var(--border); }
 .tool-context__item { display: grid; grid-template-columns: minmax(12rem, 0.35fr) minmax(0, 1fr); gap: 2rem; padding: 1.35rem 0; border-bottom: 1px solid var(--border); }
@@ -713,6 +1020,9 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
 .pricing > h2,
 .pricing .section-lede,
 .pricing > .fine { text-align: center; }
+/* The h2 carries a display max-width, so it needs auto margins to stay on the
+   section's centre line instead of centring inside a left-anchored box. */
+.pricing > h2,
 .pricing .section-lede { margin-right: auto; margin-left: auto; }
 .pricing strong { color: var(--text); font-weight: 650; }
 
@@ -736,7 +1046,7 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
 }
 .neighbour-step { padding-top: 1.35rem; border-top: 1px solid var(--border); }
 .neighbour-step h3 { margin: 0 0 0.55rem; font-size: 1.2rem; }
-.neighbour-step p { margin: 0; color: var(--muted); font-size: 1rem; }
+.neighbour-step p { margin: 0; color: var(--muted); font-size: 1em; }
 .install-note { margin-top: 1.25rem; }
 .install-note ol { margin: 0.85rem 0 0; padding-left: 1.25rem; color: var(--muted); }
 .install-note li { margin: 0.35rem 0; }
@@ -759,24 +1069,13 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
   border-color: var(--bronze);
   background: linear-gradient(180deg, color-mix(in srgb, var(--bronze) 8%, var(--surface)), var(--surface) 60%);
 }
-.plan-card__badge {
-  align-self: flex-start;
-  margin: 0.65rem 0 0;
-  padding: 0.35rem 0.55rem;
-  border: 1px solid color-mix(in srgb, var(--bronze) 70%, var(--border-strong));
-  border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--bronze) 14%, var(--surface));
-  color: var(--tan);
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1.2;
-}
 .plan-card h3 { margin: 0 0 0.45rem; font-size: 1.3rem; }
 .plan-card__price { color: var(--accent); font-family: var(--font-display); font-stretch: var(--font-display-stretch); font-size: 2.2rem; font-weight: 700; line-height: 1.1; }
 .plan-card__cap { color: var(--muted); font-size: 0.875rem; }
-.plan-card__use { min-height: 3.8rem; margin: 1rem 0 1rem; color: var(--text); font-size: 0.9375rem; }
-.plan-card__desc { flex: 1; margin: 0 0 1.35rem; color: var(--muted); font-size: 0.9375rem; line-height: 1.5; }
+.plan-card__use { min-height: 3.8rem; margin: 1rem 0 1rem; color: var(--text); font-size: 1em; }
+.plan-card__desc { flex: 1; margin: 0 0 1.35rem; color: var(--muted); font-size: 1em; line-height: 1.5; }
 .plan-card .btn { width: 100%; }
+.plan-card *:last-child { margin-top: auto; }
 .plan-card--mini { padding: 1.2rem; }
 .plan-card--mini h3 { font-size: 1.1rem; }
 .plan-card--mini .plan-card__price { font-size: 1.8rem; }
@@ -793,36 +1092,78 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
 .plan-head__name { display: block; color: var(--text); font-size: 1.15rem; font-weight: 600; letter-spacing: normal; text-transform: none; }
 .plan-head__price { display: block; margin-top: 0.4rem; color: var(--accent); font-family: var(--font-display); font-stretch: var(--font-display-stretch); font-size: 1.9rem; font-weight: 700; letter-spacing: normal; line-height: 1.1; text-transform: none; }
 .plan-head__cap { display: block; margin-top: 0.35rem; font-size: 0.8125rem; letter-spacing: normal; text-transform: none; }
-.plan-head__badge {
-  display: inline-block;
-  margin-top: 0.65rem;
-  padding: 0.3rem 0.55rem;
-  border: 1px solid color-mix(in srgb, var(--bronze) 70%, var(--border-strong));
-  border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--bronze) 14%, var(--surface));
-  color: var(--tan);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: normal;
-  line-height: 1.2;
-  text-transform: none;
-}
-.plan-head__desc { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.875rem; letter-spacing: normal; line-height: 1.45; text-transform: none; }
+.plan-head__desc { margin: 0.75rem 0 0; color: var(--muted); font-size: 1em; letter-spacing: normal; line-height: 1.45; text-transform: none; }
 .plan-matrix tfoot th, .plan-matrix tfoot td { border-bottom: 0; }
 .plan-matrix tfoot td { vertical-align: middle; }
 .plan-matrix tfoot .btn { width: 100%; }
 .plan-matrix [data-tier='pro'] { background: color-mix(in srgb, var(--bronze) 7%, transparent); }
 .matrix-included { color: var(--text); font-weight: 650; }
-.matrix-included::before { content: '✓ '; color: var(--owned); }
+.matrix-included::before { content: '✓ '; content: '✓ ' / ''; color: var(--owned); }
+/* One treatment per state: the tick and dash are decorative (empty alt text),
+   so screen readers hear only "Included" or "Not included". */
 .matrix-excluded { color: var(--muted); }
-.matrix-excluded::before { content: '— '; color: var(--rose); }
-.matrix-scroll-note { display: none; margin: 0.8rem 0 0; color: var(--muted); font-size: 0.875rem; }
+.matrix-excluded::before { content: '— '; content: '— ' / ''; color: var(--muted); }
+/* Feature names read as copy, not as eleven underlined links. No row
+   carries a tooltip, so none gets the dotted-underlined info treatment;
+   hover and focus carry the affordance instead. */
+.matrix-feature-link {
+  color: inherit;
+  text-decoration: none;
+}
+.matrix-feature-link:hover,
+.matrix-feature-link:focus-visible {
+  color: var(--text);
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--bronze, #b27a30);
+}
+.plan-matrix tbody th,
+.plan-matrix tbody th .matrix-feature-link,
+#custom-reports,
+#missing-tracks,
+#editions-extra-tracks,
+#export,
+#scan-and-match,
+#priority-updates,
+#missing-visibility {
+  scroll-margin-top: var(--anchor-offset);
+}
+.matrix-scroll-note { display: none; margin: 0 0 0.9rem; color: var(--muted); font-size: 0.875rem; }
+/* Phone-only shortcut to each tier column. The table still scrolls, so the
+   hint stays true and every cell stays in the DOM. */
+.matrix-tier-switch { display: none; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.75rem; }
+.matrix-tier-switch__btn {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  min-height: 2.5rem;
+  padding: 0.28rem 0.85rem;
+  cursor: pointer;
+}
+.matrix-tier-switch__btn[aria-pressed='true'] {
+  border-color: color-mix(in srgb, var(--bronze) 55%, var(--border));
+  background: color-mix(in srgb, var(--bronze) 18%, transparent);
+  color: var(--text);
+}
 
 .faq { max-width: 54rem; margin: 0; }
 .faq details { padding: 1.15rem 0; border-top: 1px solid var(--border); }
 .faq details:last-of-type { border-bottom: 1px solid var(--border); }
-.faq summary { min-height: 2.75rem; cursor: pointer; color: var(--text); font-size: 1.05rem; font-weight: 600; }
-.faq p { max-width: 48rem; margin: 0.75rem 0 0; color: var(--muted); }
+/* grid and flex both drop the list-item disclosure marker in Chromium. */
+.faq summary {
+  min-height: 2.75rem;
+  align-content: center;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.faq p { max-width: var(--measure-lede); margin: 0.75rem 0 0; color: var(--muted); }
 
 /* ── Footer ─────────────────────────────────────────────────────────────── */
 
@@ -836,10 +1177,15 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
   margin: 0 auto;
   padding: 2.25rem 1.75rem 3.25rem;
   border-top: 1px solid var(--border);
-  color: var(--faint);
-  font-size: 0.9375rem;
+  /* T-29 · one step up from --faint so the footer clears comfortable reading. */
+  color: var(--muted);
+  font-size: 1em;
+  font-weight: 500;
 }
 .site-footer p { margin: 0; }
+.site-footer__meta { display: grid; gap: 0.35rem; max-width: 34rem; }
+.site-footer__release { color: var(--faint); font-size: 0.875rem; }
+.site-footer__release:empty { display: none; }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 1.1rem; }
 .site-footer a { min-height: 2.5rem; display: inline-flex; align-items: center; color: var(--muted); text-decoration: none; }
 .site-footer a:hover { color: var(--text); }
@@ -852,21 +1198,37 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
 }
 
 @media (max-width: 900px) {
-  html:not(.js) .wall { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
-  html:not(.js) .tile { flex: initial; }
-  .hero,
   .page-hero--split { grid-template-columns: 1fr; gap: 2.75rem; }
+  .shot-pair,
+  .shot-pair--start { grid-template-columns: 1fr; }
+  .shot-pair figcaption { order: 1; }
+  .shot-pair__frame,
+  .shot-pair--start .shot-pair__frame { order: 2; }
+  .shot-pair__frame,
+  .shot-pair--start .shot-pair__frame,
+  html.js .shot-pair__frame,
+  html.js .shot-pair.is-in .shot-pair__frame,
+  html.js .shot-pair--start .shot-pair__frame,
+  html.js .shot-pair--start.is-in .shot-pair__frame {
+    transform: none;
+    transition: none;
+  }
   .neighbour-steps { grid-template-columns: 1fr; gap: 2rem; }
   .hero { padding: 4.5rem 0 4.5rem; }
   .page-hero--split .page-hero__proof { max-width: 46rem; }
+  .disc-demo__types { margin-left: 0; padding-left: 0; padding-top: 0.55rem; border-left: 0; border-top: 1px solid var(--border); }
+  .feature-index__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .report-strip { grid-template-columns: 1fr; }
+  /* T-28 · the wall wraps into a grid instead of becoming a horizontal
+     scroller. A scroll container would legitimately need a keyboard focus
+     stop, and the wall is static — so the layout, not a tabindex, is what
+     has to change. */
   .wall {
-    display: flex;
-    overflow-x: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
-    padding-bottom: 0.6rem;
-    scroll-snap-type: x mandatory;
   }
-  .tile { flex: 0 0 29%; scroll-snap-align: start; }
   .guide-step { grid-template-columns: 1fr; gap: 2.5rem; padding: 5rem 0; }
   .guide-step:nth-of-type(even) .guide-step__copy { order: initial; }
 }
@@ -882,25 +1244,64 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
   :root { --anchor-offset: 5rem; }
   .site-header { padding: 0; }
   .site-header__inner { padding: 0.75rem 1rem; }
-  .site-header nav { gap: 0.7rem; }
+  /* T-24 · collapse the primary nav behind the Menu button. */
+  .nav-toggle { display: inline-flex; }
+  html.js .site-nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: 20;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.2rem;
+    padding: 0.5rem 1rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  html.js .site-nav.is-open { display: flex; }
+  html.js .site-nav .nav-link { min-height: 2.75rem; padding: 0.5rem 0.35rem; }
+  html.js .site-nav .nav-cta { justify-content: center; margin-top: 0.4rem; }
+  /* No-JS fallback: the button would be dead, so hide it and wrap the nav onto
+     its own full-width row instead. Without this the row is clipped off-screen
+     and `overflow-x: clip` hides the overflow from the test. */
+  html:not(.js) {
+    --anchor-offset: 7.5rem;
+  }
+  html:not(.js) .nav-toggle { display: none; }
+  html:not(.js) .site-header__inner { flex-wrap: wrap; row-gap: 0.5rem; }
+  html:not(.js) .site-nav {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.35rem 0.7rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--hairline);
+  }
+  html:not(.js) .site-nav .nav-cta { margin-left: auto; }
   main, .page-main { padding: 0 1rem; }
   .site-footer { padding-right: 1rem; padding-left: 1rem; }
   .page-hero { padding: 3.75rem 0 3.5rem; }
   .hero { padding: 3.75rem 0 4rem; }
   h1 { font-size: 2.5rem; line-height: 1.04; }
-  .hero .lede, .page-hero .lede { font-size: 1.1rem; }
-  .wall { gap: 0.85rem; }
-  .tile { flex-basis: 58%; }
+  .hero .lede, .page-hero .lede { font-size: 1em; }
+  .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem; }
   .plan-grid,
   .plan-grid--duo,
-  .plan-grid--support { grid-template-columns: 1fr; }
+  .plan-grid--support,
+  .feature-index__grid { grid-template-columns: 1fr 1fr; }
+  .report-strip { grid-template-columns: 1fr; }
   .gap-board__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .catalog-map { padding: 1.25rem; }
   .catalog-map__row { grid-template-columns: 1fr; gap: 0.6rem; }
   .catalog-map__row span { justify-self: center; transform: rotate(90deg); }
   .tool-context__item { grid-template-columns: 1fr; gap: 0.35rem; }
   .matrix-scroll-note { display: block; }
+  html.js .matrix-tier-switch { display: flex; }
   .plan-matrix th, .plan-matrix td { padding: 0.85rem; }
+  .plan-matrix tbody th, .plan-matrix tfoot th { width: 22%; }
+  .plan-matrix { font-size: 0.875rem; }
   .plan-matrix th:first-child,
   .plan-matrix td:first-child {
     position: sticky;
@@ -915,22 +1316,678 @@ html.js.io-ready .observe.in { opacity: 1; transform: none; }
 }
 
 @media (forced-colors: active) {
-  .proof-frame, .trust-card, .plan-card, .plan-matrix-wrap, .gap-board, .catalog-map { border: 1px solid CanvasText; background: Canvas; }
+  body::before { display: none; }
+  .proof-frame, .trust-card, .plan-card, .plan-matrix-wrap, .gap-board, .catalog-map, .mosaic-card, .personalise-panel { border: 1px solid CanvasText; background: Canvas; }
+  #trust .trust-card, #trust .install-note { border-color: CanvasText; background: Canvas; }
+  #trust .trust-card::before, #trust .install-note::before { background: CanvasText; }
+  .nav-toggle { border-color: CanvasText; }
   .plan-card--pro, .plan-head--pro, .plan-matrix [data-tier='pro'] { background: Canvas; border-color: Highlight; }
-  .plan-card__badge, .plan-head__badge { border-color: CanvasText; background: Canvas; color: CanvasText; }
   .matrix-included::before, .matrix-excluded::before { color: CanvasText; }
   .btn-primary { background: Highlight; color: HighlightText; border-color: Highlight; }
   .btn-ghost { background: Canvas; color: CanvasText; border-color: CanvasText; }
+}
+
+
+/* —— Home / Features curation (T-01–T-09) ———————————————————— */
+
+.release-chips-intro {
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+  font-size: 1em;
+  line-height: 1.45;
+}
+.release-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.45rem 0 1.15rem;
+  padding: 0;
+  list-style: none;
+}
+.release-chips li {
+  /* T-26 · labels, not controls. No fill, no press affordance, no pointer
+     target — these name release types the app works across. */
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+}
+.release-chips--tight {
+  margin-top: 1.25rem;
+  gap: 0.3rem;
+}
+.release-chips--tight li {
+  padding: 0.2rem 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.disc-demo__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding: 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.disc-demo__own,
+.disc-demo__types {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+.disc-demo__types {
+  margin-left: 0.85rem;
+  padding-left: 0.95rem;
+  border-left: 1px solid var(--border);
+}
+.disc-demo__kicker {
+  margin-right: 0.25rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.disc-demo__bar button {
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.28rem 0.7rem;
+  cursor: pointer;
+}
+.disc-demo__bar button[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--bronze) 55%, var(--border));
+  background: color-mix(in srgb, var(--bronze) 18%, transparent);
+  color: var(--text);
+}
+.disc-demo__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.9rem 0.75rem;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.disc-demo__grid li { position: relative; min-width: 0; }
+/* This base grid is declared after the shared breakpoints, so the narrow
+   column counts live here or the six-column rule wins at 390px and every
+   tile shrinks to a thumbnail. Three columns keep six tiles in two rows. */
+@media (max-width: 900px) {
+  .disc-demo__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .disc-demo__grid { gap: 0.75rem 0.65rem; }
+  .disc-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+.disc-art {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 30% 25%, hsl(var(--h) 42% 62% / 0.9), transparent 42%),
+    linear-gradient(145deg, hsl(var(--h) 28% 28%), hsl(calc(var(--h) + 40) 22% 12%));
+}
+.disc-art--gap {
+  box-sizing: border-box;
+  border: 2px dashed currentColor;
+  color: color-mix(in srgb, var(--text) 72%, var(--muted));
+  background:
+    repeating-linear-gradient(135deg, transparent 0 8px, hsl(var(--h) 20% 18% / 0.45) 8px 9px),
+    linear-gradient(145deg, hsl(var(--h) 12% 16%), #141311);
+}
+.disc-banner {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-pill);
+  background: rgb(12 11 10 / 0.78);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+.disc-title {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+.disc-meta { display: block; color: var(--muted); font-size: 0.75rem; }
+.disc-demo__empty { margin: 0.8rem 0 0; color: var(--muted); }
+
+.report-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.report-strip .proof-frame figcaption { color: var(--text); font-size: 1em; }
+html.js .report-strip {
+  position: relative;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+html.js .report-strip .proof-frame {
+  grid-area: 1 / 1;
+  width: min(58%, 28rem);
+  opacity: 0.62;
+  z-index: 1;
+  pointer-events: none;
+}
+html.js .report-strip .proof-frame.is-prev { justify-self: start; transform: translateX(8%); }
+html.js .report-strip .proof-frame.is-next { justify-self: end; transform: translateX(-8%); }
+html.js .report-strip .proof-frame.is-focus {
+  width: min(74%, 42rem);
+  justify-self: center;
+  opacity: 1;
+  z-index: 3;
+  pointer-events: auto;
+  transform: none;
+  cursor: zoom-in;
+}
+html.js .report-strip .proof-frame figcaption { display: none; }
+.report-strip__nav {
+  position: absolute;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.report-strip__nav--prev { left: 0; }
+.report-strip__nav--next { right: 0; }
+.report-strip__nav:hover { border-color: var(--accent); color: var(--accent); }
+.report-strip__nav:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.report-strip__nav svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.js .report-strip .proof-frame { transition: opacity 280ms var(--ease), transform 280ms var(--ease); }
+}
+@media (max-width: 900px) {
+  html.js .report-strip .proof-frame:not(.is-focus) { display: none; }
+  html.js .report-strip .proof-frame.is-focus { width: 100%; }
+}
+
+.hero-trust {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 1.45;
+  max-width: 36rem;
+}
+
+.platform-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+/* Section copy that is centred on purpose keeps its centre line. A page hero
+   is left-aligned, so its notes follow the buttons instead of drifting. */
+.page-hero .platform-note,
+.page-hero .fine { text-align: left; }
+
+.incomplete-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 1.5rem 2rem;
+  align-items: center;
+}
+.incomplete-feature__copy .section-lede { margin-bottom: 0.75rem; }
+.incomplete-feature__viz {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.incomplete-feature__viz .mosaic-rows { margin: 0; }
+
+.feature-index__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: 0;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.feature-index__grid li {
+  display: flex;
+  align-self: stretch; /* shared cell borders need the full row height */
+  min-width: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.feature-index__grid a {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex: 1;
+  height: 100%;
+  min-height: 4.5rem;
+  padding: 0.95rem 1rem;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 550;
+  text-decoration: none;
+}
+.feature-index__grid svg {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.feature-index__grid a:hover,
+.feature-index__grid a:focus-visible {
+  color: var(--bronze);
+  outline: none;
+}
+
+@media (max-width: 800px) {
+  .incomplete-feature { grid-template-columns: 1fr; }
+}
+
+/* —— Feature mosaic (Mock B / R-11–R-14 home) ———————————————— */
+
+.feature-mosaic .section-lede { max-width: 42rem; }
+
+.mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+}
+.mosaic-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 14rem;
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.mosaic-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+.mosaic-card > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1em;
+  line-height: 1.45;
+}
+.mosaic-viz {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0.75rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+}
+.mosaic-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+.mosaic-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  font-size: 0.75rem;
+  color: var(--text);
+}
+.mosaic-badge {
+  flex-shrink: 0;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--rose) 75%, #3d0f16);
+  color: #1a1a1a;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+.mosaic-badge--ok {
+  background: color-mix(in srgb, var(--owned) 70%, #0a2b16);
+}
+.mosaic-badge--fix {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.mosaic-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+}
+.mosaic-chip {
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.morph-stage {
+  position: relative;
+  width: 5.5rem;
+  height: 5.5rem;
+}
+.morph-a,
+.morph-b {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  color: #1a1a1a;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.morph-a {
+  background: #8a6a4a;
+  animation: morphSwap 3.2s ease-in-out infinite;
+}
+.morph-b {
+  background: #6a7a8a;
+  animation: morphSwap 3.2s ease-in-out infinite reverse;
+}
+@keyframes morphSwap {
+  0%, 40% { opacity: 1; transform: scale(1); }
+  50%, 90% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Gap-tile fill: owned covers gently settle when the wall is revealed (R-13) */
+html.js.io-ready .wall--motion .tile:not(.tile-gap) .cover {
+  opacity: 0;
+  transform: scale(0.92);
+}
+html.js.io-ready .wall--motion.in .tile:not(.tile-gap) .cover,
+html.js.io-ready .wall--motion .tile.observe.in:not(.tile-gap) .cover {
+  opacity: 1;
+  transform: none;
+  transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+  transition-delay: var(--d, 0s);
+}
+/* When the wall itself gets .in, cascade children */
+html.js.io-ready .wall--motion.in .tile:not(.tile-gap) .cover {
+  opacity: 1;
+  transform: none;
+}
+
+/* —— Personalisation band (R-11 / R-12) ———————————————— */
+
+.personalise-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  padding: 1.25rem 1.35rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.settings-strip h3 {
+  margin: 0 0 0.85rem;
+  font-size: 1.05rem;
+}
+.settings-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.85rem;
+}
+.settings-row:last-of-type { margin-bottom: 0.35rem; }
+.settings-label {
+  min-width: 5.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.seg {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.seg button {
+  margin: 0;
+  padding: 0.45rem 0.9rem;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.seg button[aria-pressed="true"] {
+  background: var(--bronze);
+  color: #1a1a1a;
+}
+.seg button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+  z-index: 1;
+}
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.swatches button {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.swatches button[aria-pressed="true"] {
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--bronze);
+}
+.swatches button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.preview-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.preview-accent i {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 3px;
+  background: var(--bronze);
+}
+.locale-note {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 1em;
+}
+.a11y-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hairline);
+}
+.a11y-demo p {
+  flex: 1 1 16rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1em;
+}
+#home-focus-demo:focus-visible,
+#features-focus-demo:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 700px) {
+  .mosaic { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { animation: none; }
   html.js.io-ready .observe { opacity: 1; transform: none; transition: none; }
-  .btn, .cover, .cover-gap, .nav-link { transition: none; }
+  .btn, .cover, .cover-gap, .nav-link, .proof-frame, .site-header { transition: none; }
+  .nav-toggle__bars,
+  .nav-toggle__bars::before,
+  .nav-toggle__bars::after { transition: none; }
+  .morph-a, .morph-b { animation: none; }
+  .morph-b { opacity: 0; }
+  html.js.io-ready .wall--motion .tile:not(.tile-gap) .cover,
+  html.js.io-ready .wall--motion.in .tile:not(.tile-gap) .cover {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
-@media (forced-colors: active) and (max-width: 900px) {
-  .wall { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
-  .tile { flex: initial; }
+/* —— Feature tiles (home) and Features at a glance ——————————————————
+   Home shows eight payoff tiles; each title links to its Features anchor
+   and a stretched ::after makes the whole tile the hit area while the
+   link keeps a short, clear name. Features lists every feature once. */
+
+.feature-tiles__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.feature-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 1.15rem 1.15rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.feature-tile svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--tan);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.feature-tile h3 { margin: 0.25rem 0 0; font-size: 1.05rem; font-weight: 650; line-height: 1.3; }
+.feature-tile h3 a { color: var(--text); text-decoration: none; }
+.feature-tile h3 a::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
+.feature-tile p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.45; }
+.feature-tile .feature-tile__tier {
+  margin-top: auto;
+  padding-top: 0.35rem;
+  color: var(--tan);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.feature-tile:hover,
+.feature-tile:focus-within { border-color: color-mix(in srgb, var(--bronze) 55%, var(--border)); }
+.feature-tile h3 a:focus-visible { outline: none; }
+.feature-tile h3 a:focus-visible::after { outline: 3px solid var(--accent); outline-offset: 2px; }
+.feature-tiles__more { margin: 1.25rem 0 0; }
+.feature-tiles__more a { color: var(--accent); font-weight: 600; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .feature-tile { transition: border-color 200ms var(--ease); }
+}
+
+.feature-glance__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+.feature-glance__list li { min-width: 0; border-bottom: 1px solid var(--border); }
+.feature-glance__list a {
+  display: block;
+  padding: 0.8rem 1rem 0.8rem 0;
+  color: var(--text);
+  font-weight: 550;
+  line-height: 1.4;
+  text-decoration: none;
+  border-bottom: 0;
+}
+.feature-glance__list a:hover { color: var(--accent); }
+.feature-glance__list a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.feature-tier { color: var(--muted); font-weight: 450; white-space: nowrap; }
+
+@media (max-width: 1000px) {
+  .feature-tiles__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .feature-tiles__grid,
+  .feature-glance__list { grid-template-columns: 1fr; }
+}
+@media (forced-colors: active) {
+  .feature-tile { border-color: CanvasText; background: Canvas; }
+  .feature-tile h3 a:focus-visible::after { outline-color: Highlight; }
 }

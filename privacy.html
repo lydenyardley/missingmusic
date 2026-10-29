@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="How Missing Music and Missing Artwork handle your data. Your library stays on your computer." />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Privacy · Missing Music and Missing Artwork" />
+  <meta property="og:description" content="How Missing Music and Missing Artwork handle your data. Your library stays on your computer." />
+  <meta property="og:url" content="https://lydenyardley.github.io/missingmusic/privacy.html" />
+  <meta property="og:image" content="https://lydenyardley.github.io/missingmusic/media/hero-library.png" />
+  <link rel="canonical" href="https://lydenyardley.github.io/missingmusic/privacy.html" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-96x96.png" type="image/png" sizes="96x96" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="site.js" defer></script>
+  <title>Privacy · Missing Music and Missing Artwork</title>
+</head>
+<body data-page="privacy">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="./" aria-label="Missing Music home">
+        <svg class="brand-mark" viewBox="0 0 354 354" fill="none" aria-hidden="true" width="28" height="28">
+          <path fill="var(--color-brand, #b27a30)" d="M177 0a177 177 0 1 1 0 354 177 177 0 0 1 0-354m59 76a43 43 0 1 0 0 86 43 43 0 0 0 0-86"/>
+        </svg>
+        <span class="brand-word">Missing&nbsp;<span class="brand-wordmark__music">Music</span></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+        <span class="nav-toggle__bars" aria-hidden="true"></span>
+        <span class="nav-toggle__label">Menu</span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a class="nav-link" href="features.html">Features</a>
+        <a class="nav-link" href="privacy.html">Pricing</a>
+        <a class="nav-cta" href="https://github.com/lydenyardley/missingmusic/releases/latest" data-release-cta><span data-release-cta-label>Download the demo</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page-main">
+    <section class="page-hero" data-section="hero" aria-labelledby="privacy-title">
+      <h1 id="privacy-title">Privacy</h1>
+      <p class="fine">Last updated: 29 October 2026</p>
+      <p class="lede">This page covers two Windows apps: <strong>Missing Music</strong> and <strong>Missing Artwork</strong>. Both are built to keep your library on your own computer. Neither app has an account, ads or analytics.</p>
+    </section>
+    <section class="section" aria-labelledby="privacy-s1">
+      <h2 id="privacy-s1">Who we are</h2>
+      <p>Missing Music and Missing Artwork are made by Lyden Yardley, an individual developer in the UK. For anything about this page or your data, email <a href="mailto:lydenyardley+missingmusic@posteo.net">lydenyardley+missingmusic@posteo.net</a>.</p>
+    </section>
+    <section class="section" aria-labelledby="privacy-s2">
+      <h2 id="privacy-s2">What stays on your computer</h2>
+      <p>Your music files are never uploaded. Both apps read them where they are.</p>
+      <p><strong>Missing Music</strong> keeps these files in its data folder:</p>
+        <ul>
+          <li>the library database (<code>missingmusic.db</code>), which holds the artists and releases found in your library and the catalogue details looked up for them</li>
+          <li>up to three automatic backups of that database</li>
+          <li>downloaded cover images and short sample clips</li>
+          <li>your licence file (<code>license.json</code>), if you have a paid tier</li>
+          <li>logs and crash reports</li>
+        </ul>
+      <p><strong>Missing Artwork</strong> keeps these files:</p>
+        <ul>
+          <li>its settings (<code>settings.json</code>: your local artwork folder, iTunes storefront country, ranking weights, source preferences and window layout), undo history (<code>save-history.json</code>, <code>mutate-history.json</code>) and installed source packs, in its data folder</li>
+          <li>a size-capped image cache, in its local data folder</li>
+          <li>display preferences, in the app's built-in browser storage</li>
+          <li>a short diagnostics log, with no search text or web addresses</li>
+        </ul>
+      <p>Artwork you choose to save goes into your own music folders. If it replaces a file, the old file is kept beside it as a <code>.backup-&lt;id&gt;</code> copy.</p>
+      <p>Where these folders are:</p>
+        <ul>
+          <li><strong>Installer version:</strong> in your Windows user profile under <code>AppData</code> (Roaming and Local).</li>
+          <li><strong>Microsoft Store version:</strong> Windows usually keeps them in the app's private package folder, under <code>AppData\Local\Packages\</code>. If you used the downloaded version on the same computer before, the Store version reuses that version's existing folders instead.</li>
+        </ul>
+    </section>
+    <section class="section" aria-labelledby="privacy-s3">
+      <h2 id="privacy-s3">What is sent, and to whom</h2>
+      <p>To find releases and artwork, the apps look things up on public music services. Each request sends the artist or album name, or a catalogue ID, and the details Windows sends with any web request, such as your IP address. Nothing from your files themselves is sent, and no file paths or account details are included.</p>
+      <p><strong>Missing Music</strong> asks during setup whether it may use Network features, which send artist and album names to the services below. While Network features is off, Missing Music looks nothing up online and shows only images it has already saved. You can change this later in Settings, under Data &amp; privacy. With Network features on, it contacts:</p>
+        <ul>
+          <li>MusicBrainz and the Cover Art Archive (release lists and covers)</li>
+          <li>Deezer (release details and artist pictures; 30-second samples only if you turn samples on, which are off by default, and only when you press Play)</li>
+          <li>Last.fm (similar artists, sending artist names from your library, and pictures)</li>
+          <li>TheAudioDB, Wikipedia and Wikidata (artist pictures and background)</li>
+          <li>Apple's iTunes Search (cover images)</li>
+        </ul>
+      <p>Separately from Network features, Missing Music asks GitHub for the latest version number once each time the app starts, and whenever you choose "Check for updates". Nothing about you or your library is sent. You can turn off the check at launch in Settings, under About.</p>
+      <p>Image downloads can be limited or blocked in Settings, under Data &amp; privacy.</p>
+      <p><strong>Missing Artwork</strong> only contacts the sources you turn on. Every source is off until you do. Each request sends the artist and album name, the iTunes storefront country if you have set one, and the details sent with any web request, such as your IP address and the app's name and version. It does not send file paths, IDs or lists of your library. Each source can only reach its own listed web addresses, over HTTPS. The sources are:</p>
+        <ul>
+          <li>MusicBrainz and the Cover Art Archive (including archive.org)</li>
+          <li>Apple's iTunes Search</li>
+          <li>Deezer</li>
+          <li>Wikipedia and Wikimedia</li>
+          <li>Qobuz, Beatport and Juno</li>
+          <li>Last.fm, using the app's own built-in key; you never enter one</li>
+        </ul>
+      <p>The Local folder source reads images from a folder you choose, on your computer only, with no network use.</p>
+      <p>Missing Artwork's source list is only updated when you ask, from an address you give, and an update is only accepted if it is signed. Missing Artwork has no automatic updater.</p>
+      <p>Each of these services has its own privacy policy.</p>
+    </section>
+    <section class="section" aria-labelledby="privacy-s4">
+      <h2 id="privacy-s4">Payments (Missing Music only)</h2>
+      <p>Missing Artwork is free software under the GPLv2 licence. It has no paid tiers, takes no payments and has no licence key.</p>
+      <p>Paid tiers are sold through Lemon Squeezy, which is the merchant of record. Lemon Squeezy handles your payment, card details, billing address and receipts. We never see your card details. Lemon Squeezy shares your name, email address and order details with us so we can provide your licence and support. See the Lemon Squeezy privacy policy.</p>
+      <p>This applies to copies installed from the Microsoft Store too: upgrades still go through Lemon Squeezy.</p>
+    </section>
+    <section class="section" aria-labelledby="privacy-s5">
+      <h2 id="privacy-s5">Licence and Devices (Missing Music only)</h2>
+      <p>Missing Artwork has no accounts, no sign-in and no licence activation.</p>
+      <p>When you activate a key in Missing Music, the app sends your licence key and the fixed label "Missing Music Desktop" to Lemon Squeezy, through a small relay we run on Cloudflare. The relay passes the request on and does not store it. Lemon Squeezy records the activation so each tier's Device limit works: 2 Devices for Standard and Pro, 5 for Family.</p>
+      <p>To tell your Devices apart, the app derives an identifier from your Windows installation. It stays on your computer, inside the licence file, and is not sent to us or to Lemon Squeezy.</p>
+    </section>
+    <section class="section" aria-labelledby="privacy-s6">
+      <h2 id="privacy-s6">Crash reports</h2>
+      <p>If Missing Music crashes, it writes a report to your computer, with personal details such as your Windows user name removed. Reports are never sent automatically. You can send one to us yourself from Settings, which opens an email in your own mail app for you to review first.</p>
+      <p>Missing Artwork has no crash reports, telemetry or analytics. Its diagnostics log stays on your computer.</p>
+    </section>
+    <section class="section" aria-labelledby="privacy-s7">
+      <h2 id="privacy-s7">Children</h2>
+      <p>The apps are not aimed at children, and we do not knowingly collect children's data.</p>
+    </section>
+    <section class="section" aria-labelledby="privacy-s8">
+      <h2 id="privacy-s8">Your rights under UK GDPR</h2>
+      <p>Missing Artwork sends us nothing. The only personal data we hold is what Lemon Squeezy shares with us for your purchase, plus any email you send us. You can ask us to see, correct or delete it, or object to how we use it, by emailing <a href="mailto:lydenyardley+missingmusic@posteo.net">lydenyardley+missingmusic@posteo.net</a>. If you are unhappy with our answer, you can complain to the Information Commissioner's Office (ico.org.uk).</p>
+    </section>
+    <section class="section" aria-labelledby="privacy-s9">
+      <h2 id="privacy-s9">How to delete your data</h2>
+      <p><strong>On your computer:</strong></p>
+        <ul>
+          <li>Missing Music: Settings has an option to clear your library data. To remove everything, uninstall the app, then delete the <code>MissingMusic</code> folders in <code>%APPDATA%</code> and <code>%LOCALAPPDATA%</code>, and the folder named <code>app.missingmusic.desktop</code>.</li>
+          <li>Missing Artwork: uninstall the app, then delete the <code>com.missingartwork.app</code> folders in <code>%APPDATA%</code> and <code>%LOCALAPPDATA%</code>. Uninstalling may leave settings behind, so check those folders. Artwork you saved, and any <code>.backup-&lt;id&gt;</code> copies, stay in your music folders until you delete them.</li>
+          <li>Microsoft Store versions: uninstalling removes the data in the app's package folder. If the Store version reused folders from an earlier downloaded version, those folders stay, so delete them as above. For Missing Artwork, saved artwork and <code>.backup-&lt;id&gt;</code> copies in your music folders stay.</li>
+        </ul>
+      <p>Deactivate your licence in Settings before you uninstall, so the Device is freed.</p>
+      <p><strong>With us and Lemon Squeezy:</strong> email <a href="mailto:lydenyardley+missingmusic@posteo.net">lydenyardley+missingmusic@posteo.net</a> and we will delete what we hold and ask Lemon Squeezy to do the same, apart from records the law requires us to keep.</p>
+    </section>
+    <section class="section" aria-labelledby="privacy-s10">
+      <h2 id="privacy-s10">Changes</h2>
+      <p>If this page changes, we will update the date at the top. Significant changes will be noted in the release notes.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer page-footer">
+    <div class="site-footer__meta">
+      <p>A Windows app for collectors who own the music.</p>
+      <p class="site-footer__release" data-release-note></p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="features.html">Features</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
+      <a href="features.html#trust">Trust and installer notes</a>
+      <a href="https://github.com/lydenyardley/missingmusic/releases">Releases</a>
+      <a href="https://github.com/lydenyardley/missingmusic">View site source</a>
+    </nav>
+  </footer>
+</body>
+</html>
